@@ -27,14 +27,16 @@
                 android:textSize="36dp"
                 android:layout_gravity="center"
                 android:id="@+id/textView" />
-            <ImageView
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:layout_width="98dp"
                 android:layout_height="98dp"
-                app:srcCompat="@drawable/round_shape"
-                android:background="@drawable/profile_img"
+                android:src="@drawable/profile_img"
                 android:id="@+id/imageView"
                 android:layout_marginTop="27dp"
-                android:layout_gravity="center"/>
+                android:layout_gravity="center" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
