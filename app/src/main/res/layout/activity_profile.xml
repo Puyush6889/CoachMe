@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_profile"
     android:layout_width="match_parent"
@@ -10,4 +11,48 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.swatloaner.coachme.Profile">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:text="Profile"
+                android:layout_height="wrap_content"
+                android:textSize="36dp"
+                android:layout_gravity="center"
+                android:id="@+id/textView" />
+            <ImageView
+                android:layout_width="98dp"
+                android:layout_height="98dp"
+                app:srcCompat="@drawable/round_shape"
+                android:background="@drawable/profile_img"
+                android:id="@+id/imageView"
+                android:layout_marginTop="27dp"
+                android:layout_gravity="center"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="User Name"
+                android:id="@+id/user_name"
+                android:textSize="25dp"/>
+            <TextView
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:hint="List of Team"
+                android:textSize="25dp"/>
+            <ListView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/list_of_current_teams">
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
 </RelativeLayout>
