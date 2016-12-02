@@ -25,7 +25,8 @@
         <activity
             android:name=".SoccerDad"
             android:label="@string/title_activity_soccer_dad"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".SignUpActivity"></activity>
     </application>
 
 </manifest>
