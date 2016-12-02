@@ -22,6 +22,10 @@
         </activity>
         <activity android:name=".MainLogin" />
         <activity android:name=".Profile" />
+        <activity
+            android:name=".SoccerDad"
+            android:label="@string/title_activity_soccer_dad"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
