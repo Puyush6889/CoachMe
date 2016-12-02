@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/soccerpitch"
+    android:id="@+id/horiz"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:id="@+id/vert"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+        <TableLayout
+            android:layout_width="220px"
+            android:layout_height="220px"
+            android:layout_gravity="end"
+            >
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageButton
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:id="@+id/erase"
+                    android:background="@drawable/eraser"
+                    android:visibility="invisible"
+                    />
+                <ImageButton
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:id="@+id/draw"
+                    android:visibility="invisible"
+                    android:background="@drawable/pencil"
+                    />
+            </TableRow>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                >
+                <ImageButton
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:id="@+id/clear"
+                    android:visibility="invisible"
+                    android:background="@drawable/brush"
+                    />
+                <ImageButton
+                    android:layout_width="100px"
+                    android:layout_height="100px"
+                    android:layout_gravity="end"
+                    android:id="@+id/open"
+                    android:background="@drawable/pallet"
+                    />
+            </TableRow>
+
+        </TableLayout>
+    </LinearLayout>
+
+</RelativeLayout>
