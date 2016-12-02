@@ -56,14 +56,14 @@
                 android:id="@+id/list_of_current_teams">
             </ListView>
         </LinearLayout>
-        <android.support.design.widget.NavigationView
+        <android.support.design.internal.NavigationMenuItemView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            app:menu="@menu/nav_menu_items"
-            app:headerLayout="@layout/navg_header"
+            app:menu="@menu/activity_soccer_dad_drawer"
+            app:headerLayout="@layout/nav_header_soccer_dad"
             android:layout_gravity="start">
+        </android.support.design.internal.NavigationMenuItemView>
 
-        </android.support.design.widget.NavigationView>
 
     </ScrollView>
 </RelativeLayout>
