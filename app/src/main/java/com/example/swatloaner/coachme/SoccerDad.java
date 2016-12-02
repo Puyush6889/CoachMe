@@ -1,5 +1,6 @@
 package com.example.swatloaner.coachme;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -74,6 +75,7 @@ public class SoccerDad extends AppCompatActivity
 
         if (id == R.id.field) {
             // Handle the camera action
+
         } else if (id == R.id.chat) {
 
         } else if (id == R.id.addPlayers) {
@@ -83,7 +85,8 @@ public class SoccerDad extends AppCompatActivity
         } else if (id == R.id.newTeam) {
 
         } else if (id == R.id.roster) {
-
+            Intent intent = new Intent(getApplication(), MainLogin.class);
+            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
