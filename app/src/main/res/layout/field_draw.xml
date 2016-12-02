@@ -1,11 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/soccerpitch"
     android:id="@+id/horiz"
     >
+    <com.example.swatloaner.coachme.MyCanvas
+        android:background="@drawable/soccerpitch"
+        android:id="@+id/soccerField"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +32,7 @@
                 <ImageButton
                     android:layout_width="100px"
                     android:layout_height="100px"
-                    android:id="@+id/erase"
+                    android:id="@+id/eraser"
                     android:background="@drawable/eraser"
                     android:visibility="invisible"
                     />
@@ -54,7 +59,7 @@
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:layout_gravity="end"
-                    android:id="@+id/open"
+                    android:id="@+id/pallet"
                     android:background="@drawable/pallet"
                     />
             </TableRow>
