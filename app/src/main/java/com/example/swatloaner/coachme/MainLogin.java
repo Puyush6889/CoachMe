@@ -1,11 +1,14 @@
 package com.example.swatloaner.coachme;
 
 import android.content.Intent;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
+import java.util.HashMap;
 
 public class MainLogin extends AppCompatActivity implements View.OnClickListener{
 
@@ -50,13 +53,19 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
 
     public void login(){
         //Get values to pass to database
+        UserDataBase users = new UserDataBase();
+        users.fillUserDatabase();
         String eml = email.getText().toString();
         int pwrd = Integer.parseInt(password.getText().toString());
 
+        for (User user: users.getUsers().values())
+        {
+            if ( user.getEmail().equals(eml) && user.getId() == pwrd){
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+            }
+        }
         //pass eml and pwrd as parameters to database object
-
-
-
     }
 
 }

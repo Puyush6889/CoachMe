@@ -25,10 +25,10 @@ public class UserDataBase {
     public UserDataBase()
     {
         users = new HashMap<>();
-        user1 = new User("Puyush", "puyush@vt.edu", 1);
-        user2 = new User("Enq", "eqn@vt.edu", 2);
-        user3 = new User("Joe", "joep5@vt.edu", 3);
-        user4 = new User("kirck", "krick5@vt.edu", 4);
+        user1 = new User("Puyush", "puyush@vt.edu", 1234);
+        user2 = new User("Enq", "eqn@vt.edu", 2341);
+        user3 = new User("Joe", "joep5@vt.edu", 3412);
+        user4 = new User("kirck", "krick5@vt.edu", 4123);
     }
 
     public void fillUserDatabase()

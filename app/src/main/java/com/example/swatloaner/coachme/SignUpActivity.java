@@ -31,7 +31,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     /*
         Sign up method will check the database for duplicates and add the user to it if no duplicates
      */
-    private signUp(){
+    private void signUp(){
         //pull values from edit ext views
 
         //pass them to search function hashtable
