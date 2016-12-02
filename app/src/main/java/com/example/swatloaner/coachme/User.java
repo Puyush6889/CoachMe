@@ -10,6 +10,8 @@ public class User {
 
     private String name;
 
+
+
     public String getName() {
         return name;
     }
@@ -36,7 +38,8 @@ public class User {
 
     private String email;
     private Integer id;
-    public void User(String name, String email, Integer id)
+
+    public User(String name, String email, Integer id)
     {
         this.name = name;
         this.email = email;
