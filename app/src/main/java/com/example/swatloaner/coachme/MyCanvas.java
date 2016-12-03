@@ -77,4 +77,8 @@ public class MyCanvas extends View {
         super.onDraw(canvas);
     }
 
+    public void clear() {
+        activePaths.clear();
+        invalidate();
+    }
 }

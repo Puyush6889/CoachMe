@@ -195,14 +195,13 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                             public void onClick(DialogInterface dialog,int id) {
                                 //delete everything method
                                 dialog.cancel();
-
-
                             }
                         })
                 .setNegativeButton("just Drawings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 //clear method for canvas
+                                myCanvas.clear();
                                 dialog.cancel();
                             }
                         });
