@@ -2,6 +2,7 @@ package com.example.swatloaner.coachme;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  * Created by Kirk on 12/2/2016.
  */
 
-public class Field_Draw extends SoccerDad implements View.OnClickListener {
+public class Field_Draw extends AppCompatActivity implements View.OnClickListener {
 
     MyCanvas myCanvas;
     TouchHandler touchHandler;
@@ -28,7 +29,12 @@ public class Field_Draw extends SoccerDad implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.field_draw);
+
         myCanvas = (MyCanvas) findViewById(R.id.soccerField);
+        myCanvas.setOnTouchListener(touchHandler);
         touchHandler = new TouchHandler(this);
         minorButtons = new ArrayList<>();
 
@@ -48,7 +54,6 @@ public class Field_Draw extends SoccerDad implements View.OnClickListener {
         eraser.setOnClickListener(this);
         clear.setOnClickListener(this);
 
-        super.onCreate(savedInstanceState);
     }
 
     public void addNewPath(int id, float x, float y) {
@@ -97,7 +102,7 @@ public class Field_Draw extends SoccerDad implements View.OnClickListener {
             setMinorIconsVisible(other.getVisibility() == View.INVISIBLE);
         } else {
             if (view.getId() == draw.getId()) { //make other icons invisible
-                if (current.equals(draw)) {
+                if (current != null && current.equals(draw)) {
                     //renable buttons
                     current.setBackgroundColor(Color.WHITE);
                     isDrawing = false;
@@ -115,7 +120,7 @@ public class Field_Draw extends SoccerDad implements View.OnClickListener {
                     setMinorIconsVisibleExcept(false, current);
                 }
             } else if (view.getId() == eraser.getId()) {
-                if (current.equals(eraser)) {
+                if (current != null &&current.equals(eraser)) {
                     //renable buttons
                     isErasing = false;
                     current.setBackgroundColor(Color.WHITE);

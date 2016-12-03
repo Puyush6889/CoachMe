@@ -31,6 +31,14 @@
 
         </activity>
         <activity android:name=".SignUpActivity"></activity>
+        <activity
+            android:name=".Field_Draw"
+            android:label="@string/title_activity_field_draw"
+            android:parentActivityName=".SoccerDad">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".SoccerDad"/>
+        </activity>
     </application>
 
 </manifest>
