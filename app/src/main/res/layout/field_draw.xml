@@ -33,7 +33,7 @@
                     android:layout_width="100px"
                     android:layout_height="100px"
                     android:id="@+id/eraser"
-                    android:background="@drawable/eraser"
+                    android:background="@drawable/undo"
                     android:visibility="invisible"
                     />
                 <ImageButton
@@ -53,7 +53,7 @@
                     android:layout_height="100px"
                     android:id="@+id/clear"
                     android:visibility="invisible"
-                    android:background="@drawable/brush"
+                    android:background="@drawable/trashcan"
                     />
                 <ImageButton
                     android:layout_width="100px"
