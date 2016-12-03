@@ -2,7 +2,9 @@ package com.example.swatloaner.coachme;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 
@@ -172,6 +174,17 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                 setMinorIconsVisible(false);
             }
         }
+    }
+
+    public void PromptDelete() {
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompt_field, null);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
+
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+
     }
 
 
