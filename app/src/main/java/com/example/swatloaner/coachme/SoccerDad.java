@@ -74,6 +74,8 @@ public class SoccerDad extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.field) {
+            Intent fieldIntent = new Intent(getApplication(), Field_Draw.class);
+            startActivity(fieldIntent  );
             // Handle the camera action
 
         } else if (id == R.id.chat) {
