@@ -63,6 +63,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         HashMap<String, User> addingUsers = new HashMap<>();
         addingUsers.put(name, user);
         newUsers.setUsersDatabase(addingUsers);
+        newUsers.fillUserDatabase();
         for ( User user1: newUsers.getUsersDatabase().values())
         {
             System.out.println(user1.getName()+ user1.getEmail());

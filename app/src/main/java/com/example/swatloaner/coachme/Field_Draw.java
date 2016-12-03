@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.DrawableRes;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
@@ -25,7 +26,6 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     ImageButton draw;
     ImageButton eraser;
     ImageButton clear;
-    ImageButton current;
 
     public boolean isDrawing = false;
     boolean isErasing = false;
@@ -48,8 +48,6 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
         draw = (ImageButton) findViewById(R.id.draw);
         eraser = (ImageButton) findViewById(R.id.eraser);
         clear = (ImageButton) findViewById(R.id.clear);
-
-        current = null;
 
         minorButtons.add(draw);
         minorButtons.add(eraser);
@@ -103,84 +101,36 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         if (view.getId() == pallet.getId()) { // open the other icons
-            ImageButton other = null;
-            for (int i = 0; i < minorButtons.size(); i++) {
-                if (!minorButtons.get(i).equals(current)) {
-                    other = minorButtons.get(i);
+
+            if (isDrawing) {
+                if (eraser.getVisibility() == View.VISIBLE) { // if undo is visible and drawing, turn it off except pencil
+                    setMinorIconsVisibleExcept(false, draw);
+                } else { // if undo is invisible and drawing, turn it all visible
+                    setMinorIconsVisible(true);
                 }
+            } else {
+                setMinorIconsVisible(draw.getVisibility() == View.INVISIBLE);
             }
-            setMinorIconsVisible(other.getVisibility() == View.INVISIBLE);
 
         } else {
             if (view.getId() == draw.getId()) { //make other icons invisible
-                if (current != null && current.equals(draw)) {
-                    //renable buttons
-                    current.setBackgroundColor(Color.WHITE);
-                    isDrawing = false;
-                    current = null;
-                    setMinorIconsVisible(true);
+                isDrawing = !isDrawing;
+                if (isDrawing) {
+                    draw.setImageResource(R.drawable.pencil2);
+                    setMinorIconsVisibleExcept(false, draw);
                 } else {
-                    //set button to current
-                    if (current != null) {
-                        current.setBackgroundColor(Color.WHITE);
-                    }
-                    current = draw;
-                    isDrawing = true;
-                    isErasing = false;
-                    current.setBackgroundColor(Color.GREEN);
-                    setMinorIconsVisibleExcept(false, current);
+                    draw.setImageResource(R.drawable.pencil);
+                    setMinorIconsVisible(true);
                 }
             } else if (view.getId() == eraser.getId()) {// if we want to implement undo button we can not set it to whiteevery other time
-                if (current != null &&current.equals(eraser)) {
-                    //renable buttons
-                    isErasing = false;
-                    current.setBackgroundColor(Color.WHITE);
-                    current = null;
-                    setMinorIconsVisible(true);
-                } else {
-                    //set button to current
-                    if (current != null) {
-                        current.setBackgroundColor(Color.WHITE);
-                    }
-                    current = eraser;
-                    isErasing = true;
-                    isDrawing = false;
-                    current.setBackgroundColor(Color.GREEN);
-                    setMinorIconsVisibleExcept(false, current);
-                    undo();
-
-                }
+                undo();
             } else if (view.getId() == clear.getId()) {
-
-                /*
-                //send initial prompt to make sure they want to.
-                Prompt initial = new Prompt("Are you sure?")
-                if (initial.Accepted) {
-
-                    //send prompt to clear names as well
-                    Prompt prompt = new Prompt("Would you like to clear names as well?")
-                    if (prompt.Accepted) {
-                        //clear names
-
-                    }
-
-                    //now clear paths
-
-                }
-                */
-                if (current != null) {
-                    current.setBackgroundColor(Color.WHITE);
-                }
-                current = null;
-                isDrawing = false;
-                isErasing = false;
-                setMinorIconsVisible(false);
+                PromptDelete();
             }
         }
     }
 
     public void PromptDelete() {
-        final int button = -1;
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompt_field, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(

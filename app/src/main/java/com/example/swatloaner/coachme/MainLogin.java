@@ -61,7 +61,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
             Log.e("Check for user", user.getName());
             Log.e("Check for user",  user.getEmail());
             if ( user.getEmail().equals(eml) && user.getId() == pwrd){
-                Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+                Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
                 startActivity(intent);
             }
         }
