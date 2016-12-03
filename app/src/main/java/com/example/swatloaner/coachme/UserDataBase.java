@@ -13,18 +13,20 @@ public class UserDataBase {
     private User user3;
     private User user4;
     private HashMap<String, User> users;
+    private HashMap<String, User> users6;
 
-    public HashMap<String, User> getUsers() {
-        return users;
+    public HashMap<String, User> getUsersDatabase() {
+        return users6;
     }
 
-    public void setUsers(HashMap<String, User> users) {
-        this.users = users;
+    public void setUsersDatabase(HashMap<String, User> users) {
+        this.users6 = users;
     }
 
     public UserDataBase()
     {
         users = new HashMap<>();
+        users6 = new HashMap<>();
         user1 = new User("Puyush", "puyush@vt.edu", 1234);
         user2 = new User("Enq", "eqn@vt.edu", 2341);
         user3 = new User("Joe", "joep5@vt.edu", 3412);
@@ -33,9 +35,16 @@ public class UserDataBase {
 
     public void fillUserDatabase()
     {
+        String addingUser = "";
+//        HashMap<String, User> addingUser1 = new HashMap<>();
         users.put(user1.getName(), user1);
         users.put(user2.getName(), user2);
         users.put(user3.getName(), user3);
         users.put(user4.getName(), user4);
+        for (User name : users6.values()) {
+//            addingUser1.put(name.getName(), name);
+            users.put(name.getName(), name);
+        }
+
     }
 }

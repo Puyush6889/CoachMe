@@ -1,14 +1,12 @@
 package com.example.swatloaner.coachme;
 
 import android.content.Intent;
-import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
-import java.util.HashMap;
 
 public class MainLogin extends AppCompatActivity implements View.OnClickListener{
 
@@ -58,8 +56,10 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
         String eml = email.getText().toString();
         int pwrd = Integer.parseInt(password.getText().toString());
 
-        for (User user: users.getUsers().values())
+        for (User user: users.getUsersDatabase().values())
         {
+            Log.e("Check for user", user.getName());
+            Log.e("Check for user",  user.getEmail());
             if ( user.getEmail().equals(eml) && user.getId() == pwrd){
                 Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
                 startActivity(intent);
