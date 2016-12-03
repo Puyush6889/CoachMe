@@ -16,7 +16,9 @@ public class UserDataBase {
     private HashMap<String, User> users6;
 
     public HashMap<String, User> getUsersDatabase() {
-        return users6;
+
+        this.users = users6;
+        return users;
     }
 
     public void setUsersDatabase(HashMap<String, User> users) {
@@ -35,14 +37,11 @@ public class UserDataBase {
 
     public void fillUserDatabase()
     {
-        String addingUser = "";
-//        HashMap<String, User> addingUser1 = new HashMap<>();
         users.put(user1.getName(), user1);
         users.put(user2.getName(), user2);
         users.put(user3.getName(), user3);
         users.put(user4.getName(), user4);
         for (User name : users6.values()) {
-//            addingUser1.put(name.getName(), name);
             users.put(name.getName(), name);
         }
 
