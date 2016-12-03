@@ -28,10 +28,7 @@ public class MyCanvas extends View {
         paintPath.setColor(Color.BLACK);
         paintPath.setStyle(Paint.Style.STROKE);
         paintPath.setStrokeWidth(15);
-
     }
-
-
     public void addPath(int id, float x, float y) {
         Path path = new Path();
         path.moveTo(x, y);
@@ -67,10 +64,9 @@ public class MyCanvas extends View {
         lastId--;
         invalidate();
     }
-
-
     @Override
-    protected void onDraw(Canvas canvas) {
+    protected void onDraw(
+            Canvas canvas) {
         for (Path path : activePaths.values()) {
             canvas.drawPath(path, paintPath);
         }
