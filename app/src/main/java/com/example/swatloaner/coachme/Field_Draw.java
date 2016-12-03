@@ -34,9 +34,10 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.field_draw);
 
         myCanvas = (MyCanvas) findViewById(R.id.soccerField);
-        myCanvas.setOnTouchListener(touchHandler);
         touchHandler = new TouchHandler(this);
         minorButtons = new ArrayList<>();
+        myCanvas.setOnTouchListener(touchHandler);
+
 
         pallet = (ImageButton) findViewById(R.id.pallet);
         draw = (ImageButton) findViewById(R.id.draw);
