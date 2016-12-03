@@ -29,20 +29,20 @@ public class UserDataBase {
     {
         users = new HashMap<>();
         users6 = new HashMap<>();
-        user1 = new User("Puyush", "puyush@vt.edu", 1234);
-        user2 = new User("Enq", "eqn@vt.edu", 2341);
-        user3 = new User("Joe", "joep5@vt.edu", 3412);
-        user4 = new User("kirck", "krick5@vt.edu", 4123);
+        user1 = new User("puyush@vt.edu", "puyush@vt.edu", 1234);
+        user2 = new User("eqn@vt.edu", "eqn@vt.edu", 2341);
+        user3 = new User("joep5@vt.edu", "joep5@vt.edu", 3412);
+        user4 = new User("krick5@vt.edu", "krick5@vt.edu", 4123);
     }
 
     public void fillUserDatabase()
     {
-        users.put(user1.getName(), user1);
-        users.put(user2.getName(), user2);
-        users.put(user3.getName(), user3);
-        users.put(user4.getName(), user4);
+        users.put(user1.getEmail(), user1);
+        users.put(user2.getEmail(), user2);
+        users.put(user3.getEmail(), user3);
+        users.put(user4.getEmail(), user4);
         for (User name : users6.values()) {
-            users.put(name.getName(), name);
+            users.put(name.getEmail(), name);
         }
 
     }

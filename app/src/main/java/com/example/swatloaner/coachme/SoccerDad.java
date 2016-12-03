@@ -33,6 +33,7 @@ public class SoccerDad extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
     }
 
     @Override
@@ -49,6 +50,7 @@ public class SoccerDad extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.soccer_dad, menu);
+
         return true;
     }
 
@@ -71,23 +73,31 @@ public class SoccerDad extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+//        int id = item.getItemId();
+        Intent intent;
 
-        if (id == R.id.field) {
-            Intent fieldIntent = new Intent(getApplication(), Field_Draw.class);
-            startActivity(fieldIntent);
-            // field action
-        } else if (id == R.id.chat) {
+        switch (item.getItemId())
+        {
+            case R.id.field:
+                intent = new Intent(getApplication(), Field_Draw.class);
+                startActivity(intent);
+                break;
+            case R.id.chat:
+                break;
+            case R.id.addPlayers:
+                break;
+            case R.id.notifications:
+                break;
+            case R.id.newTeam:
+                break;
+            case R.id.roster:
+                break;
+            case R.id.profile:
+                intent = new Intent(getApplication(), Profile.class);
+                startActivity(intent);
+            default:
 
-        } else if (id == R.id.addPlayers) {
 
-        } else if (id == R.id.notifications) {
-
-        } else if (id == R.id.newTeam) {
-
-        } else if (id == R.id.roster) {
-            Intent intent = new Intent(getApplication(), MainLogin.class);
-            startActivity(intent);
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

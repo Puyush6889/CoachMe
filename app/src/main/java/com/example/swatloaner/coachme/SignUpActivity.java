@@ -61,7 +61,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         User user = new User(name, userEmail, userConfirm_Password);
         UserDataBase newUsers = new UserDataBase();
         HashMap<String, User> addingUsers = new HashMap<>();
-        addingUsers.put(name, user);
+        addingUsers.put(userEmail, user);
         newUsers.setUsersDatabase(addingUsers);
         newUsers.fillUserDatabase();
         for ( User user1: newUsers.getUsersDatabase().values())
@@ -69,7 +69,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             System.out.println(user1.getName()+ user1.getEmail());
         }
         System.out.println("The Hasmap Users");
-        Intent intent = new Intent(getApplicationContext(), MainLogin.class);
+        Intent intent = new Intent(getApplicationContext(), Profile.class);
         startActivity(intent);
         //pull values from edit ext views
 
