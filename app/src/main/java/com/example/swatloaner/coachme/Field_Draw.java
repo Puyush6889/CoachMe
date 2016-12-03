@@ -1,11 +1,14 @@
 package com.example.swatloaner.coachme;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -177,6 +180,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     }
 
     public void PromptDelete() {
+        final int button = -1;
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompt_field, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -184,6 +188,30 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("everything",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                //delete everything method
+                                dialog.cancel();
+
+
+                            }
+                        })
+                .setNegativeButton("just Drawings",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                //clear method for canvas
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
 
     }
 
