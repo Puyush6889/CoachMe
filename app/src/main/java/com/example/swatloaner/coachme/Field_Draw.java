@@ -68,6 +68,9 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
             myCanvas.updatePath(id, x, y);
         }
     }
+    public void undo(){
+        myCanvas.undo();
+    }
 
     public void setMinorIconsVisible(boolean vis) {
         for (int i = 0; i < minorButtons.size(); i++) {
@@ -90,6 +93,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
+    //when we change color background make the whole image go green or white we might need to change images completely
 
     @Override
     public void onClick(View view) {
@@ -101,6 +105,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                 }
             }
             setMinorIconsVisible(other.getVisibility() == View.INVISIBLE);
+
         } else {
             if (view.getId() == draw.getId()) { //make other icons invisible
                 if (current != null && current.equals(draw)) {
@@ -120,7 +125,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                     current.setBackgroundColor(Color.GREEN);
                     setMinorIconsVisibleExcept(false, current);
                 }
-            } else if (view.getId() == eraser.getId()) {
+            } else if (view.getId() == eraser.getId()) {// if we want to implement undo button we can not set it to whiteevery other time
                 if (current != null &&current.equals(eraser)) {
                     //renable buttons
                     isErasing = false;
@@ -137,6 +142,8 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                     isDrawing = false;
                     current.setBackgroundColor(Color.GREEN);
                     setMinorIconsVisibleExcept(false, current);
+                    undo();
+
                 }
             } else if (view.getId() == clear.getId()) {
 
@@ -166,4 +173,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
             }
         }
     }
+
+
+
 }

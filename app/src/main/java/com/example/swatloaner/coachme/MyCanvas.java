@@ -17,13 +17,13 @@ import java.util.HashMap;
 public class MyCanvas extends View {
 
     Paint paintPath;
-
+    int lastId;
     HashMap<Integer, Path> activePaths;
 
     public MyCanvas(Context context, AttributeSet attrs) {
         super(context, attrs);
         activePaths = new HashMap<>();
-
+        lastId = 0;
         paintPath = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintPath.setColor(Color.BLACK);
         paintPath.setStyle(Paint.Style.STROKE);
@@ -36,6 +36,10 @@ public class MyCanvas extends View {
         Path path = new Path();
         path.moveTo(x, y);
         activePaths.put(id, path);
+        if(lastId!=id)
+        {
+            lastId = id;
+        }
         invalidate();
     }
 
@@ -43,6 +47,10 @@ public class MyCanvas extends View {
         Path path = activePaths.get(id);
         if (path != null) {
             path.lineTo(x, y);
+        }
+        if(lastId!=id)
+        {
+            lastId = id;
         }
         invalidate();
     }
@@ -52,6 +60,11 @@ public class MyCanvas extends View {
         if (hash.containsKey(id)) {
             hash.remove(id);
         }
+        invalidate();
+    }
+    public void undo() {
+        activePaths.remove(lastId);
+        lastId--;
         invalidate();
     }
 
