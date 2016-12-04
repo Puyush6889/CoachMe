@@ -19,4 +19,7 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_soccer_dad">SoccerDad</string>
     <string name="title_activity_field_draw">Field_Draw</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

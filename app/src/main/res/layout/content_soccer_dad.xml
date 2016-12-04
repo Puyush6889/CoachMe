@@ -13,4 +13,10 @@
     tools:context="com.example.swatloaner.coachme.SoccerDad"
     tools:showIn="@layout/app_bar_soccer_dad">
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/content_frame">
+        
+    </FrameLayout>
 </RelativeLayout>
