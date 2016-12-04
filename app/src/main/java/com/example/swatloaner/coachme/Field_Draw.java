@@ -9,8 +9,10 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableRow;
 
@@ -172,9 +174,46 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
 
     }
+    public void promptAddPlayer()
+    {
+        LayoutInflater li = LayoutInflater.from(this);
+        View promptsView = li.inflate(R.layout.prompt_field, null);
+        ListView listView;
+        String[] team = {"Kirk", "Joe", "Puyush", "Enrique"};
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.add_player_item, team);
+        listView = (ListView) findViewById(R.id.playerList);
+        listView.setAdapter(adapter);
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                this);
 
+        // set prompts.xml to alertdialog builder
+        alertDialogBuilder.setView(promptsView);
+        alertDialogBuilder
+                .setCancelable(false)
+                .setPositiveButton("Team",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                //delete everything method
+                                dialog.cancel();
+                            }
+                        })
+                .setNegativeButton("Oponent",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                //clear method for canvas
+                                dialog.cancel();
+                            }
+                        });
+        // create alert dialog
+        AlertDialog alertDialog = alertDialogBuilder.create();
+
+        // show it
+        alertDialog.show();
+
+    }
     public void doubleTap(float x, float y) {
         if (!isDrawing && eraser.getVisibility() == View.INVISIBLE) {
+
 
         }
     }
