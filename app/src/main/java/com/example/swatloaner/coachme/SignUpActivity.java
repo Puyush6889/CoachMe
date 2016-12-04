@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity implements View.OnClickListener{
@@ -19,6 +20,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText nickName;
 
     Button signup;
+
+    UserDataBase userDataBase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +36,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         nickName = (EditText) findViewById(R.id.nickName);
         password = (EditText) findViewById(R.id.password);
         confirm_password = (EditText) findViewById(R.id.confirm_password);
+
+        userDataBase = (UserDataBase) getIntent().getExtras().get("database");
     }
 
     /*
@@ -42,8 +47,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         String name = nickName.getText().toString();
         String userEmail = email.getText().toString();
-        UserDataBase checkUsers = new UserDataBase();
-        for(User user: checkUsers.getUsersDatabase().values())
+        for(User user: userDataBase.getUsers().values())
         {
             if ( userEmail.equals(user.getEmail()))
             {
@@ -53,29 +57,38 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
                 Toast toast = Toast.makeText(context, text, duration);
                 toast.show();
+                //added return so that function stops here ~ Joe
+                return;
             }
         }
+
         Integer userPassword = Integer.parseInt(password.getText().toString());
         Integer userConfirm_Password = Integer.parseInt(confirm_password.getText().toString());
 
-        User user = new User(name, userEmail, userConfirm_Password);
-        UserDataBase newUsers = new UserDataBase();
-        HashMap<String, User> addingUsers = new HashMap<>();
-        addingUsers.put(userEmail, user);
-        newUsers.setUsersDatabase(addingUsers);
-        newUsers.fillUserDatabase();
-        for ( User user1: newUsers.getUsersDatabase().values())
-        {
-            System.out.println(user1.getName()+ user1.getEmail());
+        //check if passwords match
+        if (userPassword != userConfirm_Password){
+            Context context = getApplicationContext();
+            CharSequence text = "Passwords do not match";
+            int duration = Toast.LENGTH_SHORT;
+
+            Toast toast = Toast.makeText(context, text, duration);
+            toast.show();
+            //return so that code stops
+            return;
         }
-        System.out.println("The Hasmap Users");
+
+        // Create new user
+        User user = new User(name, userEmail, userConfirm_Password);
+        // Add user to database
+        userDataBase.put(userEmail, user);
+
+        //create intent to go to profile activity
         Intent intent = new Intent(getApplicationContext(), Profile.class);
+        //profile activty will need access to the User Database
+        intent.putExtra("database", userDataBase);
+        //profile activity will need to have a way to know which profile to load
+        intent.putExtra("user_email", userEmail);
         startActivity(intent);
-        //pull values from edit ext views
-
-        //pass them to search function hashtable
-
-        //create a new user object and add it to the table
     }
 
 

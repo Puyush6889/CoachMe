@@ -11,9 +11,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.example.swatloaner.coachme.Profile">
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -47,13 +48,12 @@
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:hint="List of Team"
+                android:hint="Your Teams"
                 android:textSize="25dp"/>
             <ListView
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/list_of_current_teams">
+                android:id="@+id/teams">
             </ListView>
         </LinearLayout>
         <android.support.design.internal.NavigationMenuItemView
@@ -65,5 +65,5 @@
         </android.support.design.internal.NavigationMenuItemView>
 
 
-    </ScrollView>
+    </LinearLayout>
 </RelativeLayout>

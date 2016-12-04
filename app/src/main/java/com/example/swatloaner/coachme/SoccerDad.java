@@ -17,6 +17,12 @@ import android.view.MenuItem;
 public class SoccerDad extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    UserDataBase userDataBase;
+
+    String userEmail;
+
+    User user;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +30,12 @@ public class SoccerDad extends AppCompatActivity
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        // get the database and current user's email
+        Intent intent = getIntent();
+        userDataBase = (UserDataBase) intent.getExtras().get("database");
+        userEmail = (String) intent.getExtras().get("user_email");
+        // get the user from the database
+        user = userDataBase.getUsers().get(userEmail);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -92,9 +104,9 @@ public class SoccerDad extends AppCompatActivity
                 break;
             case R.id.roster:
                 break;
-            case R.id.profile:
-                intent = new Intent(getApplication(), Profile.class);
-                startActivity(intent);
+//            case R.id.profile:
+//                intent = new Intent(getApplication(), Profile.class);
+//                startActivity(intent);
             default:
 
 
