@@ -1,6 +1,7 @@
 package com.example.swatloaner.coachme;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -16,7 +17,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class SoccerDad extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener{
 
     UserDataBase userDataBase;
     String userEmail;
@@ -47,6 +48,7 @@ public class SoccerDad extends AppCompatActivity
         userDataBase = new UserDataBase();
 
         loginFragment = new LoginFragment();
+
 
 //        if (user == null){
 //            //go to login fragment to get a user
@@ -125,6 +127,7 @@ public class SoccerDad extends AppCompatActivity
             case R.id.addPlayers:
                 break;
             case R.id.notifications:
+
                 break;
             case R.id.newTeam:
                 break;
@@ -143,4 +146,9 @@ public class SoccerDad extends AppCompatActivity
         drawer.closeDrawer(GravityCompat.START);
         return true;
     }
+
+//    @Override
+//    public void onFragmentInteraction(Uri uri) {
+//
+//    }
 }

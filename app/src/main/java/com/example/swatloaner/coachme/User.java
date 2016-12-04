@@ -1,5 +1,7 @@
 package com.example.swatloaner.coachme;
 
+import android.graphics.Bitmap;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,6 +17,15 @@ public class User implements Serializable{
     private String email;
     private Integer id;
     private List<String> teams;
+    private Bitmap profilePic;
+
+    public Bitmap getProfilePic() {
+        return profilePic;
+    }
+
+    public void setProfilePic(Bitmap profilePic) {
+        this.profilePic = profilePic;
+    }
 
     public List<String> getTeams() {
         return teams;
