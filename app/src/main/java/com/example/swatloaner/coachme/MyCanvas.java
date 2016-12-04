@@ -51,6 +51,7 @@ public class MyCanvas extends View {
         }
         invalidate();
     }
+    
 
     public void removePath(int id) {
         HashMap hash = activePaths;
