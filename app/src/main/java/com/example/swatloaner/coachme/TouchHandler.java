@@ -103,6 +103,7 @@ public class TouchHandler implements View.OnTouchListener {
 
         private void onSwipeLeft() {
             //get the drag abble players!!!!
+
         }
 
         private void onSwipeBottom() {

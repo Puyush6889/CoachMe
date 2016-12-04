@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.field_draw);
 
         myCanvas = (MyCanvas) findViewById(R.id.soccerField);
@@ -165,5 +165,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     }
 
 
+    public void swipeleft() {
 
+    }
 }
