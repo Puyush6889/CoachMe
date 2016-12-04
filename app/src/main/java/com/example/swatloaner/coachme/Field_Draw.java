@@ -10,8 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
 
 import java.util.ArrayList;
 
@@ -36,6 +37,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.field_draw);
 
         myCanvas = (MyCanvas) findViewById(R.id.soccerField);
@@ -63,6 +65,9 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     public void addNewPath(int id, float x, float y) {
         if (isDrawing) {
             myCanvas.addPath(id, x, y);
+            if (eraser.getVisibility() == View.VISIBLE) {
+                setMinorIconsVisibleExcept(false, draw);
+            }
         }
     }
 
@@ -115,13 +120,17 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
         } else {
             if (view.getId() == draw.getId()) { //make other icons invisible
                 isDrawing = !isDrawing;
+                //TableRow.LayoutParams params = (TableRow.LayoutParams) draw.getLayoutParams();
+                //params.height = 100;
+                //params.width = 100;
                 if (isDrawing) {
-                    draw.setImageResource(R.drawable.pencil2);
+                    //draw.setImageResource(R.drawable.pencil2);
                     setMinorIconsVisibleExcept(false, draw);
                 } else {
-                    draw.setImageResource(R.drawable.pencil);
+                    //draw.setImageResource(R.drawable.pencil);
                     setMinorIconsVisible(true);
                 }
+                //draw.setLayoutParams(params);
             } else if (view.getId() == eraser.getId()) {// if we want to implement undo button we can not set it to whiteevery other time
                 undo();
             } else if (view.getId() == clear.getId()) {
@@ -164,8 +173,9 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    public void doubleTap(float x, float y) {
+        if (!isDrawing && eraser.getVisibility() == View.INVISIBLE) {
 
-    public void swipeleft() {
-
+        }
     }
 }

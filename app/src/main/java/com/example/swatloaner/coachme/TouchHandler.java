@@ -68,6 +68,7 @@ public class TouchHandler implements View.OnTouchListener {
         @Override
         public boolean onDoubleTap(MotionEvent e) {
             //add fragment to choose team members to put on the field
+            activity.doubleTap(e.getX(), e.getY());
             return super.onDoubleTap(e);
         }
         @Override
