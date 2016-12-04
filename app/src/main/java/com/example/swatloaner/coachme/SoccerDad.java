@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -18,10 +19,13 @@ public class SoccerDad extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     UserDataBase userDataBase;
-
     String userEmail;
-
     User user;
+
+    //Fields for fragments
+    ProfileFragment profileFragment;
+    LoginFragment loginFragment;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +33,6 @@ public class SoccerDad extends AppCompatActivity
         setContentView(R.layout.activity_soccer_dad);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        // get the database and current user's email
-        Intent intent = getIntent();
-        userDataBase = (UserDataBase) intent.getExtras().get("database");
-        userEmail = (String) intent.getExtras().get("user_email");
-        // get the user from the database
-        user = userDataBase.getUsers().get(userEmail);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -45,6 +42,32 @@ public class SoccerDad extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        //initialize database
+        userDataBase = new UserDataBase();
+
+        loginFragment = new LoginFragment();
+
+//        if (user == null){
+//            //go to login fragment to get a user
+//            //That is, set the default fragment to the login
+//            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+//            tx.replace(R.id.content_frame, loginFragment);
+//            tx.commit();
+//
+//            //login will start signup fragment if no user
+//
+//
+//        }
+//        else{ //user is not null and is signed up/in
+//            //go to profile fragment
+//
+//
+//        }
+
+        FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+        tx.replace(R.id.content_frame, loginFragment);
+        tx.commit();
 
     }
 
@@ -88,6 +111,9 @@ public class SoccerDad extends AppCompatActivity
 //        int id = item.getItemId();
         Intent intent;
 
+
+        //
+
         switch (item.getItemId())
         {
             case R.id.field:
@@ -109,8 +135,9 @@ public class SoccerDad extends AppCompatActivity
 //                startActivity(intent);
             default:
 
-
         }
+
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
