@@ -18,6 +18,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
     EditText password;
     EditText confirm_password;
     EditText nickName;
+    EditText teamName;
 
     Button signup;
 
@@ -31,7 +32,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         signup = (Button) findViewById(R.id.signup);
         signup.setOnClickListener(this);
 
-
+        teamName = (EditText)findViewById(R.id.teamName);
         email = (EditText) findViewById(R.id.email);
         nickName = (EditText) findViewById(R.id.nickName);
         password = (EditText) findViewById(R.id.password);
@@ -47,6 +48,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
 
         String name = nickName.getText().toString();
         String userEmail = email.getText().toString();
+        String userTeam = teamName.getText().toString();
         for(User user: userDataBase.getUsers().values())
         {
             if ( userEmail.equals(user.getEmail()))
@@ -62,8 +64,8 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
             }
         }
 
-        Integer userPassword = Integer.parseInt(password.getText().toString());
-        Integer userConfirm_Password = Integer.parseInt(confirm_password.getText().toString());
+        int userPassword = Integer.parseInt(password.getText().toString());
+        int userConfirm_Password = Integer.parseInt(confirm_password.getText().toString());
 
         //check if passwords match
         if (userPassword != userConfirm_Password){
@@ -78,12 +80,12 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         }
 
         // Create new user
-        User user = new User(name, userEmail, userConfirm_Password);
+        User user = new User(name, userEmail, userConfirm_Password, userTeam);
         // Add user to database
         userDataBase.put(userEmail, user);
 
         //create intent to go to profile activity
-        Intent intent = new Intent(getApplicationContext(), Profile.class);
+        Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
         //profile activty will need access to the User Database
         intent.putExtra("database", userDataBase);
         //profile activity will need to have a way to know which profile to load

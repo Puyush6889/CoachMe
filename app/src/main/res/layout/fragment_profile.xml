@@ -36,6 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="User Name"
+
                 android:id="@+id/user_name"
                 android:textSize="25dp"/>
             <TextView
@@ -43,7 +44,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Your Teams"
-                android:textSize="25dp"/>
+                android:textSize="25dp"
+                android:paddingBottom="25dp"/>
 
             <ListView
                 android:layout_width="134dp"
@@ -52,15 +54,6 @@
                 >
             </ListView>
         </LinearLayout>
-        <android.support.design.internal.NavigationMenuItemView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            app:menu="@menu/activity_soccer_dad_drawer"
-            app:headerLayout="@layout/nav_header_soccer_dad"
-            android:layout_gravity="start">
-        </android.support.design.internal.NavigationMenuItemView>
-
-
     </LinearLayout>
 
 </FrameLayout>

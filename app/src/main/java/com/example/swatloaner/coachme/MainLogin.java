@@ -66,11 +66,11 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
     }
 
     public void goToSignUpActivity() {
-        Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
-        intent.putExtra("database", (Serializable) userDataBase);
+        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+        intent.putExtra("database",  userDataBase);
         startActivity(intent);
     }
-
+    Toast toast;
     public void login() {
         //Get values to pass to database
         String eml = email.getText().toString();
@@ -81,6 +81,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
             Log.e("Check for user", user.getEmail());
             //scan database for user credentials
             if (user.getEmail().equals(eml) && user.getId() == pwrd) {
+                toast.cancel();
                 Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
                 //pass database to soccer dad
                 intent.putExtra("database", (Serializable) userDataBase);
@@ -88,19 +89,15 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
                 intent.putExtra("user_email", eml);
                 //start soccer dad activity
                 startActivity(intent);
+
+            }
+            else
+            {
+               toast = Toast.makeText(getApplicationContext(), "INVALID CREDENTIALS", Toast.LENGTH_SHORT);
+                toast.show();
+                toast.cancel();
             }
         }
-
-        // If you got here the credentials were invalid.
-
-        // Inform the user.
-
-//        Context context = getApplicationContext();
-//        CharSequence text = "INVALID CREDENTIALS";
-//        int duration = Toast.LENGTH_SHORT;
-//
-//        Toast toast = Toast.makeText(context, text, duration);
-//        toast.show();
     }
 
     /**

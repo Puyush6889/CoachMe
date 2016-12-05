@@ -57,7 +57,7 @@ public class UserDataBase implements  Serializable {
         for (User maybeMate : users.values()) {
             for ( String string : maybeMate.getTeams()) {
                 if (team.equals(string)) {
-                    roster += maybeMate.getName() + "\n";
+                    roster += maybeMate.getName() + "\n"+"\n";
                 }
             }
         }

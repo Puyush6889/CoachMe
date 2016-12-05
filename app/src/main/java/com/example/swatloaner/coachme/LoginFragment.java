@@ -173,15 +173,16 @@ public class LoginFragment extends Fragment implements View.OnClickListener {
                 intent.putExtra("user_email", eml);
                 //start soccer dad activity
                 startActivity(intent);
+
             }
             else
             {
-                Context context = getActivity();
-                CharSequence text = "INVALID CREDENTIALS";
-                int duration = Toast.LENGTH_SHORT;
-
-                Toast toast = Toast.makeText(context, text, duration);
-                toast.show();
+//                Context context = getActivity();
+//                CharSequence text = "INVALID CREDENTIALS";
+//                int duration = Toast.LENGTH_SHORT;
+//
+//                Toast toast = Toast.makeText(context, text, duration);
+//                toast.show();
             }
 
         }
