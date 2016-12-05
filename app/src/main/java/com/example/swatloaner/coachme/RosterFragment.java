@@ -49,16 +49,16 @@ public class RosterFragment extends Fragment {
 
 
     private void populateRoster(){
-        List<String> rosterStr = new ArrayList<>();
-//                userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()));
+        List<String> rosterList = userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()));
 
         String team = "";
-            for ( String string :  userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()))) {
-            }
-                    team = string + "\n";
-            }
-        roster.setText();
+
+        for ( String name :  rosterList) {
+            team += name + "\n";
         }
+
+        roster.setText(team);
+    }
 
 
 
