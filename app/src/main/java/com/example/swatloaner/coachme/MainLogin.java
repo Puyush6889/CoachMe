@@ -66,7 +66,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
     }
 
     public void goToSignUpActivity() {
-        Intent intent = new Intent(getApplicationContext(), SignUpActivity.class);
+        Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
         intent.putExtra("database", (Serializable) userDataBase);
         startActivity(intent);
     }
@@ -81,7 +81,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
             Log.e("Check for user", user.getEmail());
             //scan database for user credentials
             if (user.getEmail().equals(eml) && user.getId() == pwrd) {
-                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
                 //pass database to soccer dad
                 intent.putExtra("database", (Serializable) userDataBase);
                 //pass user email to soccer dad so that we can load correct profile

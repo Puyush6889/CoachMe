@@ -44,10 +44,12 @@
                 android:layout_height="wrap_content"
                 android:hint="Your Teams"
                 android:textSize="25dp"/>
+
             <ListView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/teams">
+                android:layout_width="134dp"
+                android:layout_height="196dp"
+                android:id="@+id/teams"
+                >
             </ListView>
         </LinearLayout>
         <android.support.design.internal.NavigationMenuItemView

@@ -25,7 +25,7 @@ public class SoccerDad extends AppCompatActivity
 
     //Fields for fragments
     ProfileFragment profileFragment;
-    LoginFragment loginFragment;
+//    LoginFragment loginFragment;
 
 
     @Override
@@ -47,28 +47,11 @@ public class SoccerDad extends AppCompatActivity
         //initialize database
         userDataBase = new UserDataBase();
 
-        loginFragment = new LoginFragment();
-
-
-//        if (user == null){
-//            //go to login fragment to get a user
-//            //That is, set the default fragment to the login
-//            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-//            tx.replace(R.id.content_frame, loginFragment);
-//            tx.commit();
+//        loginFragment = new LoginFragment();
 //
-//            //login will start signup fragment if no user
-//
-//
-//        }
-//        else{ //user is not null and is signed up/in
-//            //go to profile fragment
-//
-//
-//        }
-
+        profileFragment = new ProfileFragment();
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-        tx.replace(R.id.content_frame, loginFragment);
+        tx.replace(R.id.content_frame, profileFragment);
         tx.commit();
 
     }
@@ -83,28 +66,6 @@ public class SoccerDad extends AppCompatActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.soccer_dad, menu);
-
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -127,15 +88,16 @@ public class SoccerDad extends AppCompatActivity
             case R.id.addPlayers:
                 break;
             case R.id.notifications:
-
                 break;
             case R.id.newTeam:
                 break;
             case R.id.roster:
                 break;
 //            case R.id.profile:
-//                intent = new Intent(getApplication(), Profile.class);
-//                startActivity(intent);
+//                profileFragment = new ProfileFragment();
+//                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+//                tx.replace(R.id.content_frame, profileFragment);
+//                tx.commit();
             default:
 
         }
@@ -147,8 +109,4 @@ public class SoccerDad extends AppCompatActivity
         return true;
     }
 
-//    @Override
-//    public void onFragmentInteraction(Uri uri) {
-//
-//    }
 }
