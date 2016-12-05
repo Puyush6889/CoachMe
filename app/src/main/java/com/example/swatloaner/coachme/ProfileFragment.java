@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,7 +27,7 @@ import static android.content.Intent.getIntent;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment implements View.OnClickListener{
+public class ProfileFragment extends Fragment implements View.OnClickListener, AdapterView.OnItemClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -91,6 +93,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
         teams = (ListView) view.findViewById(R.id.teams);
         adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.test_list_item, user.getTeams());
         teams.setAdapter(adapter);
+        teams.setOnItemClickListener(this);
+
         return view;
 
     }
@@ -122,6 +126,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener{
     @Override
     public void onClick(View view) {
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Log.e("Position", "" + adapterView.getSelectedItemPosition());
+        user.setCURRENT_TEAM(adapterView.getSelectedItemPosition());
     }
 
     /**

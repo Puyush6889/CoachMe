@@ -36,6 +36,8 @@ public class UserDataBase implements  Serializable {
         put("eqn@vt.edu", new User("Enrique", "eqn@vt.edu", 2341, "Team10"));
         put("joe5@vt.edu", new User("Joe", "joe5@vt.edu", 3412, "Team10"));
         put("kirk5@vt.edu", new User("Kirk", "kirk5@vt.edu", 4123, "Team10"));
+
+        users.get("joe5@vt.edu").getTeams().add("another team");
     }
 
     public void put(String email, User user){

@@ -27,7 +27,7 @@ public class User implements Serializable{
         this.CURRENT_TEAM = CURRENT_TEAM;
     }
 
-    private int CURRENT_TEAM = 0;
+    private int CURRENT_TEAM;
 
     public Bitmap getProfilePic() {
         return profilePic;
@@ -78,6 +78,7 @@ public class User implements Serializable{
         this.email = email;
         this.id = id;
         this.teams.add(team);
+        CURRENT_TEAM = 0;
     }
 
     public User(String name, String email, Integer id)
@@ -86,6 +87,7 @@ public class User implements Serializable{
         this.name = name;
         this.email = email;
         this.id = id;
+        CURRENT_TEAM = 0;
     }
 
 
