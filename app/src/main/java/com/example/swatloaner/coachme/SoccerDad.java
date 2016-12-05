@@ -63,6 +63,9 @@ public class SoccerDad extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             super.onBackPressed();
+
+
+
         }
     }
 

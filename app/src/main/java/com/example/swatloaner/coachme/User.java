@@ -19,6 +19,16 @@ public class User implements Serializable{
     private List<String> teams;
     private Bitmap profilePic;
 
+    public int getCURRENT_TEAM() {
+        return CURRENT_TEAM;
+    }
+
+    public void setCURRENT_TEAM(int CURRENT_TEAM) {
+        this.CURRENT_TEAM = CURRENT_TEAM;
+    }
+
+    private int CURRENT_TEAM = 0;
+
     public Bitmap getProfilePic() {
         return profilePic;
     }
