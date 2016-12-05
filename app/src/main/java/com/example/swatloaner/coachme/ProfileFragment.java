@@ -92,9 +92,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, A
 
         teams = (ListView) view.findViewById(R.id.teams);
         adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.test_list_item, user.getTeams());
-        teams.setAdapter(adapter);
-        teams.setOnItemClickListener(this);
 
+
+        teams.setAdapter(adapter);
+        teams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> arg0, View arg1,
+                                    int arg2, long arg3) {
+                user.setCURRENT_TEAM(arg0.getPositionForView(arg1));
+                Log.e("User team" , String.valueOf(arg0.getPositionForView(arg1)));
+            }
+
+        });
         return view;
 
     }
@@ -125,12 +135,16 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onClick(View view) {
-
+        if ( view.getId() == teams.getId())
+        {
+            Log.e("User team" , String.valueOf((teams.getSelectedItemPosition() - teams.getFirstVisiblePosition())));
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        Log.e("Position", "" + adapterView.getSelectedItemPosition());
+//        Log.e("Position", "" + adapterView.getSelectedItemPosition());
+//        Log.e("User team" , String.valueOf((teams.getSelectedItemPosition() - teams.getFirstVisiblePosition())));
         user.setCURRENT_TEAM(adapterView.getSelectedItemPosition());
     }
 

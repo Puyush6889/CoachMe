@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -48,8 +49,17 @@ public class RosterFragment extends Fragment {
 
 
     private void populateRoster(){
-        String rosterStr = userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()));
+        List<String> rosterStr = new ArrayList<>();
+//                userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()));
 
-        roster.setText(rosterStr);
-    }
+        String team = "";
+            for ( String string :  userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()))) {
+            }
+                    team = string + "\n";
+            }
+        roster.setText();
+        }
+
+
+
 }

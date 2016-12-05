@@ -50,28 +50,28 @@ public class UserDataBase implements  Serializable {
 
     }
 
-    public String getRoster(String team){
+    public List<String> getRoster(String team){
         List<String> emails = new ArrayList<>();
-        String roster = "";
+        List<String> roster = new ArrayList<>();
 
         for (User maybeMate : users.values()) {
             for ( String string : maybeMate.getTeams()) {
                 if (team.equals(string)) {
-                    roster += maybeMate.getName() + "\n"+"\n";
+                    roster.add(maybeMate.getName() + "\n"+"\n");
                 }
             }
         }
         return roster;
     }
 
-    public List<String> getRosters(User user){
-        List<String> rosters = new ArrayList<>();
-
-        for (String t : user.getTeams()){
-            rosters.add(getRoster(t));
-        }
-
-        return rosters;
-    }
+//    public List<String> getRosters(User user){
+//        List<String> rosters = new ArrayList<>();
+//
+//        for (String t : user.getTeams()){
+//            rosters.add(getRoster(t));
+//        }
+//
+//        return rosters;
+//    }
 
 }
