@@ -9,6 +9,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -174,15 +175,24 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
 
     }
-    public void promptAddPlayer()
+    public void promptAddPlayer(float x, float y)
     {
         LayoutInflater li = LayoutInflater.from(this);
         View promptsView = li.inflate(R.layout.prompt_field, null);
         ListView listView;
         String[] team = {"Kirk", "Joe", "Puyush", "Enrique"};
-        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.add_player_item, team);
+        final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.add_player_item, team);
+        final String chosenstring = "";
         listView = (ListView) findViewById(R.id.playerList);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //save the name to chosenstring
+            }
+        });
+        //for(int i = 0; i < ListView. )
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
                 this);
 
@@ -193,14 +203,14 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
                 .setPositiveButton("Team",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                //delete everything method
+                                // put the player on the field
                                 dialog.cancel();
                             }
                         })
                 .setNegativeButton("Oponent",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
-                                //clear method for canvas
+                                // put the player on the field
                                 dialog.cancel();
                             }
                         });
@@ -213,7 +223,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     }
     public void doubleTap(float x, float y) {
         if (!isDrawing && eraser.getVisibility() == View.INVISIBLE) {
-
+            promptAddPlayer(x, y);
 
         }
     }
