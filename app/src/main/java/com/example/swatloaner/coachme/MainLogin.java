@@ -26,12 +26,9 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
     Button signup;
     Button login;
 
+    User user;
+
     UserDataBase userDataBase;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,9 +46,6 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
         // need to create userDataBase here
         userDataBase = new UserDataBase();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     @Override
@@ -82,11 +76,13 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
             //scan database for user credentials
             if (user.getEmail().equals(eml) && user.getId() == pwrd) {
                 toast.cancel();
+
+                this.user = user;
                 Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
                 //pass database to soccer dad
-                intent.putExtra("database", (Serializable) userDataBase);
+                intent.putExtra("database", userDataBase);
                 //pass user email to soccer dad so that we can load correct profile
-                intent.putExtra("user_email", eml);
+                intent.putExtra("user", this.user);
                 //start soccer dad activity
                 startActivity(intent);
 
@@ -119,19 +115,11 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
     public void onStart() {
         super.onStart();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client.connect();
-        AppIndex.AppIndexApi.start(client, getIndexApiAction());
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        AppIndex.AppIndexApi.end(client, getIndexApiAction());
-        client.disconnect();
     }
 }

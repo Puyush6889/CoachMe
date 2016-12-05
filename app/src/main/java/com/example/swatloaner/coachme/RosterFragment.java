@@ -4,6 +4,7 @@ package com.example.swatloaner.coachme;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -34,13 +35,10 @@ public class RosterFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_roster, container, false);
         roster = (TextView) view.findViewById(R.id.roster);
 
-        Intent intent = getActivity().getIntent();
+        //get the current instance of user database and user
 
-        userDataBase = (UserDataBase) intent.getExtras().get("database");
-
-        String eml = (String) intent.getExtras().get("user_email");
-
-        user = userDataBase.getUsers().get(eml);
+        user = ((SoccerDad) getActivity()).getUser();
+        userDataBase = ((SoccerDad) getActivity()).getUserDataBase();
 
         populateRoster();
 
@@ -49,6 +47,7 @@ public class RosterFragment extends Fragment {
 
 
     private void populateRoster(){
+        Log.e("Current team", "" + user.getCURRENT_TEAM());
         List<String> rosterList = userDataBase.getRoster(user.getTeams().get(user.getCURRENT_TEAM()));
 
         String team = "";

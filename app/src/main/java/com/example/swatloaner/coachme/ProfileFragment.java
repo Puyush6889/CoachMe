@@ -81,11 +81,14 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, A
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
-        Intent intent = getActivity().getIntent();
 
-        userDataBase =  (UserDataBase) intent.getExtras().getSerializable("database");
-        String userEmail = (String) intent.getExtras().get("user_email");
-        user = userDataBase.getUsers().get(userEmail);
+        //get the current instance of user database and user
+//        Intent intent = getActivity().getIntent();
+//        userDataBase =  (UserDataBase) intent.getExtras().getSerializable("database");
+//        user = (User) intent.getExtras().get("user");
+
+        user = ((SoccerDad) getActivity()).getUser();
+        userDataBase = ((SoccerDad) getActivity()).getUserDataBase();
 
         user_name = (TextView) view.findViewById(R.id.user_name);
         user_name.setText(user.getName());
@@ -100,8 +103,12 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, A
             @Override
             public void onItemClick(AdapterView<?> arg0, View arg1,
                                     int arg2, long arg3) {
+
+                Log.e("Current team", "" + user.getCURRENT_TEAM());
                 user.setCURRENT_TEAM(arg0.getPositionForView(arg1));
                 Log.e("User team" , String.valueOf(arg0.getPositionForView(arg1)));
+                Log.e("Current team", "" + user.getCURRENT_TEAM());
+
             }
 
         });
@@ -135,10 +142,6 @@ public class ProfileFragment extends Fragment implements View.OnClickListener, A
 
     @Override
     public void onClick(View view) {
-        if ( view.getId() == teams.getId())
-        {
-            Log.e("User team" , String.valueOf((teams.getSelectedItemPosition() - teams.getFirstVisiblePosition())));
-        }
     }
 
     @Override

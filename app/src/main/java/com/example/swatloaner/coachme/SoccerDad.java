@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
@@ -21,13 +22,12 @@ public class SoccerDad extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener{
 
     UserDataBase userDataBase;
-    String userEmail;
     User user;
+    Bundle bundle;
 
     //Fields for fragments
     ProfileFragment profileFragment;
-    RosterFragment rosterFragment;
-//    LoginFragment loginFragment;
+    //RosterFragment rosterFragment;
 
 
     @Override
@@ -46,10 +46,16 @@ public class SoccerDad extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        //initialize database
-        userDataBase = new UserDataBase();
+        Intent intent = getIntent();
+        userDataBase = (UserDataBase) intent.getExtras().get("database");
+        user = (User) intent.getExtras().get("user");
+
+        bundle = new Bundle();
+        bundle.putSerializable("database", userDataBase);
+        bundle.putSerializable("user", user);
 
         profileFragment = new ProfileFragment();
+        profileFragment.setArguments(bundle);
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content_frame, profileFragment);
         tx.commit();
@@ -81,52 +87,87 @@ public class SoccerDad extends AppCompatActivity
 
         //
 
+//        switch (item.getItemId())
+//        {
+//            case R.id.field:
+//                Field_Fragment fieldFragment = new Field_Fragment();
+//                FragmentTransaction tx1 = getSupportFragmentManager().beginTransaction();
+//                tx1.replace(R.id.content_frame, fieldFragment);
+//                tx1.commit();
+//                break;
+//            case R.id.chat:
+//                ChatFragment chatFragment = new ChatFragment();
+//                FragmentTransaction tx6 = getSupportFragmentManager().beginTransaction();
+//                tx6.replace(R.id.content_frame, chatFragment);
+//                tx6.commit();
+//                break;
+//            case R.id.addPlayers:
+//                AddPlayersFragment addPlayersFragment = new AddPlayersFragment();
+//                FragmentTransaction tx5 = getSupportFragmentManager().beginTransaction();
+//                tx5.replace(R.id.content_frame, addPlayersFragment);
+//                tx5.commit();
+//                break;
+//            case R.id.notifications:
+//                NotificationsFragment notificationsFragment = new NotificationsFragment();
+//                FragmentTransaction tx4 = getSupportFragmentManager().beginTransaction();
+//                tx4.replace(R.id.content_frame, notificationsFragment);
+//                tx4.commit();
+//                break;
+//            case R.id.newTeam:
+//                NewTeamFragment newTeamFragment = new NewTeamFragment();
+//                FragmentTransaction tx3 = getSupportFragmentManager().beginTransaction();
+//                tx3.replace(R.id.content_frame, newTeamFragment);
+//                tx3.commit();
+//                break;
+//            case R.id.roster:
+//                rosterFragment = new RosterFragment();
+//                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+//                tx.replace(R.id.content_frame, rosterFragment);
+//                tx.commit();
+//                break;
+//            case R.id.profile:
+//                profileFragment = new ProfileFragment();
+//                FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
+//                tx2.replace(R.id.content_frame, profileFragment);
+//                tx2.commit();
+//
+//            default:
+//
+//        }
+
+        Fragment fragment = null;
+
         switch (item.getItemId())
         {
             case R.id.field:
-                Field_Fragment fieldFragment = new Field_Fragment();
-                FragmentTransaction tx1 = getSupportFragmentManager().beginTransaction();
-                tx1.replace(R.id.content_frame, fieldFragment);
-                tx1.commit();
+                fragment = new Field_Fragment();
                 break;
             case R.id.chat:
-                ChatFragment chatFragment = new ChatFragment();
-                FragmentTransaction tx6 = getSupportFragmentManager().beginTransaction();
-                tx6.replace(R.id.content_frame, chatFragment);
-                tx6.commit();
+                fragment = new ChatFragment();
                 break;
             case R.id.addPlayers:
-                AddPlayersFragment addPlayersFragment = new AddPlayersFragment();
-                FragmentTransaction tx5 = getSupportFragmentManager().beginTransaction();
-                tx5.replace(R.id.content_frame, addPlayersFragment);
-                tx5.commit();
+                fragment = new AddPlayersFragment();
                 break;
             case R.id.notifications:
-                NotificationsFragment notificationsFragment = new NotificationsFragment();
-                FragmentTransaction tx4 = getSupportFragmentManager().beginTransaction();
-                tx4.replace(R.id.content_frame, notificationsFragment);
-                tx4.commit();
+                fragment = new NotificationsFragment();
                 break;
             case R.id.newTeam:
-                NewTeamFragment newTeamFragment = new NewTeamFragment();
-                FragmentTransaction tx3 = getSupportFragmentManager().beginTransaction();
-                tx3.replace(R.id.content_frame, newTeamFragment);
-                tx3.commit();
+                fragment = new NewTeamFragment();
                 break;
             case R.id.roster:
-                rosterFragment = new RosterFragment();
-                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                tx.replace(R.id.content_frame, rosterFragment);
-                tx.commit();
+                fragment = new RosterFragment();
                 break;
             case R.id.profile:
-                profileFragment = new ProfileFragment();
-                FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
-                tx2.replace(R.id.content_frame, profileFragment);
-                tx2.commit();
-
+                fragment = new ProfileFragment();
             default:
+                break;
+        }
 
+        if (fragment != null) {
+            fragment.setArguments(bundle);
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.content_frame, fragment);
+            tx.commit();
         }
 
 
@@ -134,6 +175,14 @@ public class SoccerDad extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public User getUser(){
+        return user;
+    }
+
+    public UserDataBase getUserDataBase(){
+        return userDataBase;
     }
 
 }
