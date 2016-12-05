@@ -2,17 +2,25 @@ package com.example.swatloaner.coachme;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -40,6 +48,8 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
     ImageButton draw;
     ImageButton eraser;
     ImageButton clear;
+    Context cont;
+    RelativeLayout whereThingsGo;
 
     public boolean isDrawing = false;
     boolean isErasing = false;
@@ -85,6 +95,7 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
         // Inflate the layout for this fragment
 
         View view =  inflater.inflate(R.layout.fragment_field_, container, false);
+
         myCanvas = (MyCanvas) view.findViewById(R.id.soccerField);
         touchHandler = new TouchHandler(this);
         minorButtons = new ArrayList<>();
@@ -104,6 +115,10 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
         draw.setOnClickListener(this);
         eraser.setOnClickListener(this);
         clear.setOnClickListener(this);
+
+        cont = view.getContext();
+        whereThingsGo = (RelativeLayout) view.findViewById(R.id.whereThingsGo);
+        System.out.println("Where things go added: " + whereThingsGo.toString());
 
         return view;
 
@@ -257,47 +272,87 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
 
 
     }
-     ListView listView;
+    ListView listView;
+    private String chosenstring = "n/a";
+
+
+    private class pickMe implements DialogInterface.OnClickListener {
+
+        float x;
+        float y;
+        int c;
+        String s;
+
+        public pickMe(float x, float y, int c, String s) {
+            this.x = x;
+            this.y = y;
+            this.c = c;
+            this.s = s;
+        }
+
+        @Override
+        public void onClick(DialogInterface dialog,int id) {
+            // put the player on the field
+
+            DragObject newObj = new DragObject(draw.getContext());
+            newObj.changeText(chosenstring);
+            newObj.setColor(c);
+            float xy = whereThingsGo.getScaleX() / 2;
+            newObj.setScaleX(xy);
+            newObj.setScaleY(xy);
+            newObj.setX(x - 150);
+            newObj.setY(y - 150);
+            whereThingsGo.addView(newObj);
+
+            /*TextView textView = new TextView(cont);
+            textView.setText("Testing");
+            textView.setGravity(Gravity.CENTER);
+            textView.setBackgroundResource(R.drawable.circle);
+            textView.setScaleX(xy);
+            textView.setScaleY(xy);
+            textView.setX(x - 50);
+            textView.setY(y - 50);
+            whereThingsGo.addView(textView);*/
+
+            dialog.cancel();
+        }
+    }
+
+
     public void promptAddPlayer(float x, float y)
     {
         LayoutInflater li = LayoutInflater.from(getContext());
+        View promptsView = li.inflate(R.layout.add_player_prompt, null);
 
-        View promptsView = li.inflate(R.layout.prompt_field, null);
+        ArrayList<String> team = new ArrayList<>();
+        String[] values = {"Kirk", "Joe", "Puyush", "Enrique"}; // TODO Change this to database for team
 
-        String[] team = {"Kirk", "Joe", "Puyush", "Enrique"};
-        final ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), R.layout.add_player_item, team);
-        final String chosenstring = "";
+        for (int i = 0; i < values.length; i++) {
+            team.add(values[i]);
+        }
 
+        //for(int i = 0; i < ListView. )
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
+
+        /*ArrayAdapter adapter = new ArrayAdapter<>(alertDialogBuilder.getContext(), R.layout.add_player_item, team);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 //save the name to chosenstring
+                chosenstring = (String) adapterView.getItemAtPosition(i);
             }
-        });
-        //for(int i = 0; i < ListView. )
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                getContext());
+        });*/
 
-        // set prompts.xml to alertdialog builder
+        // set prompts.xml to alert dialog builder
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder
                 .setCancelable(false)
-                .setPositiveButton("Team",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // put the player on the field
-                                dialog.cancel();
-                            }
-                        })
-                .setNegativeButton("Oponent",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // put the player on the field
-                                dialog.cancel();
-                            }
-                        });
+                .setPositiveButton("Team", new pickMe(x, y, 1, chosenstring))
+                .setNegativeButton("Opponent", new pickMe(x, y, 0, chosenstring));
+
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -308,7 +363,6 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
     public void doubleTap(float x, float y) {
         if (!isDrawing && eraser.getVisibility() == View.INVISIBLE) {
             promptAddPlayer(x, y);
-
         }
     }
 }

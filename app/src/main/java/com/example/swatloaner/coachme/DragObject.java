@@ -4,9 +4,9 @@ import android.content.ClipData;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.DragEvent;
+import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 /**
@@ -16,15 +16,14 @@ import android.widget.TextView;
 public class DragObject extends TextView implements View.OnDragListener, View.OnTouchListener {
 
     public int color = 0; // red = 0, blue = 1
-    public ImageButton asdf;
 
     public void setColor(int c) {
         this.color = c;
         if (c == 1) { // blue
-            this.setBackgroundColor(Color.BLUE);
+            this.setBackgroundResource(R.drawable.circle_blue);
         } else {
             // default to red
-            this.setBackgroundColor(Color.RED);
+            this.setBackgroundResource(R.drawable.circle);
         }
     }
 
@@ -38,6 +37,9 @@ public class DragObject extends TextView implements View.OnDragListener, View.On
 
     public DragObject(Context context) {
         super(context);
+        this.setGravity(Gravity.CENTER);
+        this.setTextColor(Color.BLACK);
+        this.changeText();
     }
 
     @Override
