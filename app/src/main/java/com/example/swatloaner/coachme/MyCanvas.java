@@ -29,6 +29,7 @@ public class MyCanvas extends View {
         paintPath.setStyle(Paint.Style.STROKE);
         paintPath.setStrokeWidth(15);
     }
+
     public void addPath(int id, float x, float y) {
         Path path = new Path();
         path.moveTo(x, y);
@@ -51,7 +52,7 @@ public class MyCanvas extends View {
         }
         invalidate();
     }
-    
+
 
     public void removePath(int id) {
         HashMap hash = activePaths;
