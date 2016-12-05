@@ -178,6 +178,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     public void promptAddPlayer(float x, float y)
     {
         LayoutInflater li = LayoutInflater.from(this);
+
         View promptsView = li.inflate(R.layout.prompt_field, null);
         ListView listView;
         String[] team = {"Kirk", "Joe", "Puyush", "Enrique"};
