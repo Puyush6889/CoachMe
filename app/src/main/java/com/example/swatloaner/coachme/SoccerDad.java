@@ -81,8 +81,10 @@ public class SoccerDad extends AppCompatActivity
         switch (item.getItemId())
         {
             case R.id.field:
-                intent = new Intent(getApplication(), Field_Draw.class);
-                startActivity(intent);
+                Field_Fragment fieldFragment = new Field_Fragment();
+                FragmentTransaction tx1 = getSupportFragmentManager().beginTransaction();
+                tx1.replace(R.id.content_frame, fieldFragment);
+                tx1.commit();
                 break;
             case R.id.chat:
                 break;
@@ -98,9 +100,12 @@ public class SoccerDad extends AppCompatActivity
                 tx.replace(R.id.content_frame, rosterFragment);
                 tx.commit();
                 break;
-//            case R.id.profile:
-//                profileFragment = new ProfileFragment();
-//
+            case R.id.profile:
+                profileFragment = new ProfileFragment();
+                FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
+                tx2.replace(R.id.content_frame, rosterFragment);
+                tx2.commit();
+
             default:
 
         }

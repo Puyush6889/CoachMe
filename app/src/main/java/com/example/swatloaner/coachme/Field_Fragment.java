@@ -2,29 +2,38 @@ package com.example.swatloaner.coachme;
 
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.DrawableRes;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TableRow;
 
 import java.util.ArrayList;
 
+
 /**
- * Created by Kirk on 12/2/2016.
+ * A simple {@link Fragment} subclass.
+ * Activities that contain this fragment must implement the
+ * {@link Field_Fragment.OnFragmentInteractionListener} interface
+ * to handle interaction events.
+ * Use the {@link Field_Fragment#newInstance} factory method to
+ * create an instance of this fragment.
  */
+public class Field_Fragment extends Fragment implements  View.OnClickListener{
+    // TODO: Rename parameter arguments, choose names that match
+    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+    private static final String ARG_PARAM1 = "param1";
+    private static final String ARG_PARAM2 = "param2";
 
-public class Field_Draw extends AppCompatActivity implements View.OnClickListener {
-
+    // TODO: Rename and change types of parameters
+    private String mParam1;
+    private String mParam2;
     MyCanvas myCanvas;
     TouchHandler touchHandler;
     ImageButton pallet;
@@ -37,22 +46,55 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
     ArrayList<ImageButton> minorButtons;
 
+    private OnFragmentInteractionListener mListener;
+
+    public Field_Fragment() {
+        // Required empty public constructor
+    }
+
+    /**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     *
+     * @param param1 Parameter 1.
+     * @param param2 Parameter 2.
+     * @return A new instance of fragment Field_Fragment.
+     */
+    // TODO: Rename and change types and number of parameters
+    public static Field_Fragment newInstance(String param1, String param2) {
+        Field_Fragment fragment = new Field_Fragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_PARAM1, param1);
+        args.putString(ARG_PARAM2, param2);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+    }
 
-        setContentView(R.layout.field_draw);
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
 
-        myCanvas = (MyCanvas) findViewById(R.id.soccerField);
-//        touchHandler = new TouchHandler(this);
+        View view =  inflater.inflate(R.layout.fragment_field_, container, false);
+        myCanvas = (MyCanvas) view.findViewById(R.id.soccerField);
+        touchHandler = new TouchHandler(this);
         minorButtons = new ArrayList<>();
         myCanvas.setOnTouchListener(touchHandler);
+        listView = (ListView) view.findViewById(R.id.playerList);
 
-
-        pallet = (ImageButton) findViewById(R.id.pallet);
-        draw = (ImageButton) findViewById(R.id.draw);
-        eraser = (ImageButton) findViewById(R.id.eraser);
-        clear = (ImageButton) findViewById(R.id.clear);
+        pallet = (ImageButton) view.findViewById(R.id.pallet);
+        draw = (ImageButton) view.findViewById(R.id.draw);
+        eraser = (ImageButton) view.findViewById(R.id.eraser);
+        clear = (ImageButton) view.findViewById(R.id.clear);
 
         minorButtons.add(draw);
         minorButtons.add(eraser);
@@ -63,8 +105,48 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
         eraser.setOnClickListener(this);
         clear.setOnClickListener(this);
 
+        return view;
+
     }
 
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+//        if (context instanceof OnFragmentInteractionListener) {
+//            mListener = (OnFragmentInteractionListener) context;
+//        } else {
+//            throw new RuntimeException(context.toString()
+//                    + " must implement OnFragmentInteractionListener");
+//        }
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+
+    /**
+     * This interface must be implemented by activities that contain this
+     * fragment to allow an interaction in this fragment to be communicated
+     * to the activity and potentially other fragments contained in that
+     * activity.
+     * <p>
+     * See the Android Training lesson <a href=
+     * "http://developer.android.com/training/basics/fragments/communicating.html"
+     * >Communicating with Other Fragments</a> for more information.
+     */
+    public interface OnFragmentInteractionListener {
+        // TODO: Update argument type and name
+        void onFragmentInteraction(Uri uri);
+    }
     public void addNewPath(int id, float x, float y) {
         if (isDrawing) {
             myCanvas.addPath(id, x, y);
@@ -143,10 +225,10 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
     }
 
     public void PromptDelete() {
-        LayoutInflater li = LayoutInflater.from(this);
+        LayoutInflater li = LayoutInflater.from(getContext());
         View promptsView = li.inflate(R.layout.prompt_field, null);
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                this);
+                getContext());
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
@@ -175,16 +257,17 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
 
 
     }
+     ListView listView;
     public void promptAddPlayer(float x, float y)
     {
-        LayoutInflater li = LayoutInflater.from(this);
+        LayoutInflater li = LayoutInflater.from(getContext());
 
         View promptsView = li.inflate(R.layout.prompt_field, null);
-        ListView listView;
+
         String[] team = {"Kirk", "Joe", "Puyush", "Enrique"};
-        final ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.add_player_item, team);
+        final ArrayAdapter adapter = new ArrayAdapter<String>(getContext(), R.layout.add_player_item, team);
         final String chosenstring = "";
-        listView = (ListView) findViewById(R.id.playerList);
+
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -195,7 +278,7 @@ public class Field_Draw extends AppCompatActivity implements View.OnClickListene
         });
         //for(int i = 0; i < ListView. )
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                this);
+                getContext());
 
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);

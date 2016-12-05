@@ -95,12 +95,12 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
 
         // Inform the user.
 
-        Context context = getApplicationContext();
-        CharSequence text = "INVALID CREDENTIALS";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+//        Context context = getApplicationContext();
+//        CharSequence text = "INVALID CREDENTIALS";
+//        int duration = Toast.LENGTH_SHORT;
+//
+//        Toast toast = Toast.makeText(context, text, duration);
+//        toast.show();
     }
 
     /**
