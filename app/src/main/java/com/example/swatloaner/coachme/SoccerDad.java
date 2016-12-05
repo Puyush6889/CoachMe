@@ -62,10 +62,11 @@ public class SoccerDad extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-            super.onBackPressed();
-
-
-
+//            super.onBackPressed();
+            profileFragment = new ProfileFragment();
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.content_frame, profileFragment);
+            tx.commit();
         }
     }
 
