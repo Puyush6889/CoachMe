@@ -10,15 +10,15 @@ import android.view.View;
 
 public class TouchHandler implements View.OnTouchListener {
 
-    Field_Draw activity;
+    FieldFragment activity;
     int num = 1;
     GestureDetectorCompat gestureDetectorCompat;
     boolean isPressing = false;
     boolean reversing = false;
 
-    public TouchHandler(Field_Draw field_draw) {
+    public TouchHandler(FieldFragment field_draw) {
         this.activity = field_draw;
-        gestureDetectorCompat = new GestureDetectorCompat(this.activity, new MyGestureListener());
+        gestureDetectorCompat = new GestureDetectorCompat(this.activity.getContext(), new MyGestureListener());
     }
 
     @Override

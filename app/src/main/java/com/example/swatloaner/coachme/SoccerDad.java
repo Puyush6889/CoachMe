@@ -1,10 +1,12 @@
 package com.example.swatloaner.coachme;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.support.design.widget.NavigationView;
@@ -25,8 +27,12 @@ public class SoccerDad extends AppCompatActivity
 
     //Fields for fragments
     ProfileFragment profileFragment;
+    FieldFragment fieldFragment;
     RosterFragment rosterFragment;
-//    LoginFragment loginFragment;
+    NewTeamFragment newTeamFragment;
+    ChatFragment chatFragment;
+    AddPlayersFragment addPlayersFragment;
+    NotificationsFragment notificationsFragment;
 
 
     @Override
@@ -48,9 +54,16 @@ public class SoccerDad extends AppCompatActivity
         //initialize database
         userDataBase = new UserDataBase();
 
-//        loginFragment = new LoginFragment();
-//
+        //initialize fragments
         profileFragment = new ProfileFragment();
+        fieldFragment = new FieldFragment();
+        rosterFragment = new RosterFragment();
+        newTeamFragment = new NewTeamFragment();
+        chatFragment = new ChatFragment();
+        addPlayersFragment = new AddPlayersFragment();
+        notificationsFragment = new NotificationsFragment();
+
+        //make profile the default fragment
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content_frame, profileFragment);
         tx.commit();
@@ -71,41 +84,46 @@ public class SoccerDad extends AppCompatActivity
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
-        // Handle navigation view item clicks here.
-//        int id = item.getItemId();
+        // Handle navigation view item clicks here.();
         Intent intent;
 
+        // Initialize a temporary null fragment
+        Fragment fragment = null;
 
-        //
-
+        // Set fragment to the selected one
         switch (item.getItemId())
         {
             case R.id.field:
-                intent = new Intent(getApplication(), Field_Draw.class);
-                startActivity(intent);
+                fragment = fieldFragment;
                 break;
             case R.id.chat:
+                fragment = chatFragment;
                 break;
             case R.id.addPlayers:
+                fragment = addPlayersFragment;
                 break;
             case R.id.notifications:
+                fragment = notificationsFragment;
                 break;
             case R.id.newTeam:
+                fragment = newTeamFragment;
                 break;
             case R.id.roster:
-                rosterFragment = new RosterFragment();
-                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-                tx.replace(R.id.content_frame, rosterFragment);
-                tx.commit();
+                fragment = rosterFragment;
                 break;
-//            case R.id.profile:
-//                profileFragment = new ProfileFragment();
-//
+            case R.id.profile:
+                fragment = profileFragment;
+                break;
             default:
-
+                break;
         }
 
-
+        // Pull up selected fragment if not null
+        if (fragment != null) {
+            FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+            tx.replace(R.id.content_frame, fragment);
+            tx.commit();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
