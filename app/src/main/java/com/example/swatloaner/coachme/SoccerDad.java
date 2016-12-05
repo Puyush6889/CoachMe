@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.app.NotificationManagerCompat;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -87,12 +88,28 @@ public class SoccerDad extends AppCompatActivity
                 tx1.commit();
                 break;
             case R.id.chat:
+                ChatFragment chatFragment = new ChatFragment();
+                FragmentTransaction tx6 = getSupportFragmentManager().beginTransaction();
+                tx6.replace(R.id.content_frame, chatFragment);
+                tx6.commit();
                 break;
             case R.id.addPlayers:
+                AddPlayersFragment addPlayersFragment = new AddPlayersFragment();
+                FragmentTransaction tx5 = getSupportFragmentManager().beginTransaction();
+                tx5.replace(R.id.content_frame, addPlayersFragment);
+                tx5.commit();
                 break;
             case R.id.notifications:
+                NotificationsFragment notificationsFragment = new NotificationsFragment();
+                FragmentTransaction tx4 = getSupportFragmentManager().beginTransaction();
+                tx4.replace(R.id.content_frame, notificationsFragment);
+                tx4.commit();
                 break;
             case R.id.newTeam:
+                NewTeamFragment newTeamFragment = new NewTeamFragment();
+                FragmentTransaction tx3 = getSupportFragmentManager().beginTransaction();
+                tx3.replace(R.id.content_frame, newTeamFragment);
+                tx3.commit();
                 break;
             case R.id.roster:
                 rosterFragment = new RosterFragment();
@@ -103,7 +120,7 @@ public class SoccerDad extends AppCompatActivity
             case R.id.profile:
                 profileFragment = new ProfileFragment();
                 FragmentTransaction tx2 = getSupportFragmentManager().beginTransaction();
-                tx2.replace(R.id.content_frame, rosterFragment);
+                tx2.replace(R.id.content_frame, profileFragment);
                 tx2.commit();
 
             default:
