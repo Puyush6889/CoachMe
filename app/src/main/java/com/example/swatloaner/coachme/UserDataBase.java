@@ -32,12 +32,10 @@ public class UserDataBase implements  Serializable {
         users = new HashMap<>();
         teams = new HashMap<>();
 
-        put("puyush@vt.edu", new User("Puyush", "puyush@vt.edu", 1234, "Team10"));
+        put("puyush@vt.edu", new User("Nick", "puyush@vt.edu", 1234, "Team10"));
         put("eqn@vt.edu", new User("Enrique", "eqn@vt.edu", 2341, "Team10"));
         put("joe5@vt.edu", new User("Joe", "joe5@vt.edu", 3412, "Team10"));
         put("kirk5@vt.edu", new User("Kirk", "kirk5@vt.edu", 4123, "Team10"));
-
-
     }
 
     public void put(String email, User user){
@@ -61,11 +59,6 @@ public class UserDataBase implements  Serializable {
                 }
             }
         }
-
-//        for (String eml : emails){
-//            roster += users.get(eml).getName() + "\n";
-//            Log.e("roster", roster + "\n");
-//        }
         return roster;
     }
 

@@ -49,8 +49,6 @@ public class SoccerDad extends AppCompatActivity
         //initialize database
         userDataBase = new UserDataBase();
 
-//        loginFragment = new LoginFragment();
-//
         profileFragment = new ProfileFragment();
         FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
         tx.replace(R.id.content_frame, profileFragment);
