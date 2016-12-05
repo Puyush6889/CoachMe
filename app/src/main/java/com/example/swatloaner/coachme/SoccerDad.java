@@ -25,6 +25,7 @@ public class SoccerDad extends AppCompatActivity
 
     //Fields for fragments
     ProfileFragment profileFragment;
+    RosterFragment rosterFragment;
 //    LoginFragment loginFragment;
 
 
@@ -92,12 +93,14 @@ public class SoccerDad extends AppCompatActivity
             case R.id.newTeam:
                 break;
             case R.id.roster:
+                rosterFragment = new RosterFragment();
+                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
+                tx.replace(R.id.content_frame, rosterFragment);
+                tx.commit();
                 break;
 //            case R.id.profile:
 //                profileFragment = new ProfileFragment();
-//                FragmentTransaction tx = getSupportFragmentManager().beginTransaction();
-//                tx.replace(R.id.content_frame, profileFragment);
-//                tx.commit();
+//
             default:
 
         }

@@ -41,7 +41,8 @@ public class RosterFragment extends Fragment {
 
         user = userDataBase.getUsers().get(eml);
 
-        populateRoster(user.getTeams().get(1));
+        System.out.print(user.getTeams().get(0)+"The valueeeeeee");
+        populateRoster("Team10");
 
         return view;
     }

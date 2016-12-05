@@ -2,6 +2,7 @@ package com.example.swatloaner.coachme;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.util.Log;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,7 +35,7 @@ public class UserDataBase implements  Serializable {
         put("puyush@vt.edu", new User("Puyush", "puyush@vt.edu", 1234, "Team10"));
         put("eqn@vt.edu", new User("Enrique", "eqn@vt.edu", 2341, "Team10"));
         put("joe5@vt.edu", new User("Joe", "joe5@vt.edu", 3412, "Team10"));
-        put("kirk5@vt.edu", new User("Kirk", "krik5@vt.edu", 4123, "Team10"));
+        put("kirk5@vt.edu", new User("Kirk", "kirk5@vt.edu", 4123, "Team10"));
 
 
     }
@@ -51,18 +52,20 @@ public class UserDataBase implements  Serializable {
 
     public String getRoster(String team){
         List<String> emails = new ArrayList<>();
-
         String roster = "";
 
-        for (String maybeMate : teams.keySet()) {
-            if (team.equals(maybeMate)){
-                emails.add(teams.get(maybeMate));
+        for (User maybeMate : users.values()) {
+            for ( String string : maybeMate.getTeams()) {
+                if (team.equals(string)) {
+                    roster += maybeMate.getName() + "\n";
+                }
             }
         }
 
-        for (String eml : emails){
-            roster += users.get(eml).getName() + "\n";
-        }
+//        for (String eml : emails){
+//            roster += users.get(eml).getName() + "\n";
+//            Log.e("roster", roster + "\n");
+//        }
         return roster;
     }
 
