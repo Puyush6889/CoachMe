@@ -27,7 +27,7 @@ public class MyCanvas extends View {
         paintPath = new Paint(Paint.ANTI_ALIAS_FLAG);
         paintPath.setColor(Color.BLACK);
         paintPath.setStyle(Paint.Style.STROKE);
-        paintPath.setStrokeWidth(15);
+        paintPath.setStrokeWidth(10);
     }
 
     public void addPath(int id, float x, float y) {
