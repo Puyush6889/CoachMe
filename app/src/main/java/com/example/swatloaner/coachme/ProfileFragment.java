@@ -2,8 +2,11 @@ package com.example.swatloaner.coachme;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,11 +14,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Intent.getIntent;
 
 
@@ -34,6 +39,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     User user;
     UserDataBase userDataBase;
+    ImageView image;
     TextView user_name;
     ListView teams;
 
@@ -87,6 +93,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         teams = (ListView) view.findViewById(R.id.teams);
         adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.test_list_item, user.getTeams());
 
+        image = (ImageView) view.findViewById(R.id.imageView);
+        image.setOnClickListener(this);
 
         teams.setAdapter(adapter);
         teams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -107,8 +115,28 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         super.onDetach();
     }
 
+    private final int REQUEST_IMAGE_CAPTURE = 1;
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE&&resultCode==RESULT_OK){
+            Bundle extras = data.getExtras();
+            Bitmap thumbnail = (Bitmap)extras.get("data");
+            image.setImageResource(0);
+            image.setBackground(new BitmapDrawable(getResources(), thumbnail));
+        }
+    }
+
     @Override
     public void onClick(View view) {
+        if (view.getId() == image.getId()) {
+            //take picture
+            Intent takePicIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+            if (takePicIntent.resolveActivity(getActivity().getPackageManager())!=null) {
+                startActivityForResult(takePicIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        }
     }
 
 }
