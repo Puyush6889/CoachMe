@@ -148,9 +148,9 @@ public class SoccerDad extends AppCompatActivity
             case R.id.addPlayers:
                 fragment = new AddPlayersFragment();
                 break;
-            case R.id.notifications:
-                fragment = new NotificationsFragment();
-                break;
+//            case R.id.notifications:
+//                fragment = new NotificationsFragment();
+//                break;
             case R.id.newTeam:
                 fragment = new NewTeamFragment();
                 break;
