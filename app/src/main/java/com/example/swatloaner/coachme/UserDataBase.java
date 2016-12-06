@@ -32,10 +32,10 @@ public class UserDataBase implements  Serializable {
         users = new HashMap<>();
         teams = new HashMap<>();
 
-        put("puyush@vt.edu", new User("Nick", "puyush@vt.edu", 1234, "Team10"));
-        put("eqn@vt.edu", new User("Enrique", "eqn@vt.edu", 2341, "Team10"));
+        put("puyush@vt.edu", new User("Puyush", "puyush@vt.edu", 1234, "Team10"));
+        put("epp96@vt.edu", new User("Enrique", "epp96@vt.edu", 2341, "Team10"));
         put("joe5@vt.edu", new User("Joe", "joe5@vt.edu", 3412, "Team10"));
-        put("kirk5@vt.edu", new User("Kirk", "kirk5@vt.edu", 4123, "Team10"));
+        put("kirkc5@vt.edu", new User("Kirk", "kirkc5@vt.edu", 4123, "Team10"));
 
         users.get("joe5@vt.edu").getTeams().add("another team");
     }
