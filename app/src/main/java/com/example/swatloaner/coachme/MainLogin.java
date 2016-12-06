@@ -86,11 +86,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
                 startActivity(intent);
 
             }
-            else
-            {
-               toast = Toast.makeText(getApplicationContext(), "INVALID CREDENTIALS", Toast.LENGTH_SHORT);
-                toast.show();
-            }
+
         }
     }
 
