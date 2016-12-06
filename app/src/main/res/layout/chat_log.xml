@@ -23,8 +23,8 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="38dp"
-                    android:gravity="right"
+                    android:layout_height="match_parent"
+                    android:gravity="left"
                     android:textSize="20dp"
                     android:text="Lets beats those UVA peeps Coach Joe"
                     android:textColor="#000000"/>
