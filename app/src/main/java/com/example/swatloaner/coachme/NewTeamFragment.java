@@ -23,7 +23,7 @@ public class NewTeamFragment extends Fragment implements View.OnClickListener{
 
 
     EditText searchKey;
-    Button search;
+//    Button search;
     Button add;
     ListView teamList;
 
@@ -31,8 +31,8 @@ public class NewTeamFragment extends Fragment implements View.OnClickListener{
 
     User user;
     UserDataBase userDataBase;
-    List<String> toAdd;
-    List<User> teamsToAdd;
+//    List<String> toAdd;
+//    List<User> teamsToAdd;
     public NewTeamFragment() {
         // Required empty public constructor
     }
@@ -43,15 +43,21 @@ public class NewTeamFragment extends Fragment implements View.OnClickListener{
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_new_team, container, false);
 
+        user = ((SoccerDad) getActivity()).getUser();
+        userDataBase = ((SoccerDad) getActivity()).getUserDataBase();
+
         searchKey = (EditText) view.findViewById(R.id.searchKey);
-        search = (Button) view.findViewById(R.id.search);
-        search.setOnClickListener(this);
+//        search = (Button) view.findViewById(R.id.search);
+//        search.setOnClickListener(this);
         add = (Button) view.findViewById(R.id.add);
         add.setOnClickListener(this);
 
-        toAdd = new ArrayList<>();
+//        toAdd = new ArrayList<>();
+//
+//        teamsToAdd = new ArrayList<>();
 
-        teamsToAdd = new ArrayList<>();
+
+
 
         teamList = (ListView) view.findViewById(R.id.teamList);
         adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.test_list_item, user.getTeams());
@@ -62,32 +68,17 @@ public class NewTeamFragment extends Fragment implements View.OnClickListener{
             }
         });
 
-        user = ((SoccerDad) getActivity()).getUser();
-        userDataBase = ((SoccerDad) getActivity()).getUserDataBase();
 
         return view;
     }
 
     @Override
     public void onClick(View view) {
-        String player_teams = "";
-        if (view.getId() == search.getId()){
-            player_teams = searchKey.getText().toString();
-            User player = userDataBase.getUsers().get(player_teams);
-            if (player != null){
-                teamsToAdd.add(player);
-                adapter.add(user.getCurrentTeam());
-            }
-        }
-        else if (view.getId() == add.getId()){
-            if (!teamsToAdd.isEmpty()) {
-                for (User newby : teamsToAdd) {
-                    if (!newby.getTeams().contains(user.getCurrentTeam())) {
-                        newby.getTeams().add(player_teams);
-                    }
-                }
-                adapter.clear();
-                teamsToAdd.clear();
+        String newTeamName = "";
+        if (view.getId() == add.getId()){
+            newTeamName = searchKey.getText().toString();
+            if (!user.getTeams().contains(newTeamName)){
+                adapter.add(newTeamName);
             }
         }
     }

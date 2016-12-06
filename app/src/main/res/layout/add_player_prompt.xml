@@ -5,7 +5,7 @@
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="choose a player"
+        android:hint="choose a player"
         android:id="@+id/searchKey"
         />
     <Button

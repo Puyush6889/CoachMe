@@ -13,18 +13,14 @@
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="SEARCH"
-        android:id="@+id/search"/>
+        android:text="ADD"
+        android:id="@+id/add"/>
     <ListView
         android:layout_width="match_parent"
         android:id="@+id/teamList"
         android:layout_height="0px"
         android:layout_weight="2">
     </ListView>
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="ADD"
-        android:id="@+id/add"/>
+
 
 </LinearLayout>
