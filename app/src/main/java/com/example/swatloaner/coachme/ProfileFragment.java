@@ -96,6 +96,10 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         image = (ImageView) view.findViewById(R.id.imageView);
         image.setOnClickListener(this);
 
+        if (user.getProfilePic() != null){
+            image.setImageDrawable(new BitmapDrawable(user.getProfilePic()));
+        }
+
         teams.setAdapter(adapter);
         teams.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -124,6 +128,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             Bitmap thumbnail = (Bitmap)extras.get("data");
             image.setImageResource(0);
             image.setBackground(new BitmapDrawable(getResources(), thumbnail));
+            user.setProfilePic(thumbnail);
+
+            getActivity().getSupportFragmentManager()
+                    .beginTransaction()
+                    .detach(this)
+                    .attach(this)
+                    .commit();
         }
     }
 
