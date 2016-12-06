@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.ButtonBarLayout;
 import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -59,6 +61,12 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
     ArrayList<DragObject> players;
     User currentUser;
     UserDataBase UDB;
+    RelativeLayout popup;
+    ListView myListView;
+    Button teamButton;
+    Button opponentButton;
+    LinearLayout linearLayout;
+    List<String> list;
 
     public boolean isDrawing = false;
     boolean isErasing = false;
@@ -111,6 +119,7 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         myCanvas.setOnTouchListener(touchHandler);
         listView = (ListView) view.findViewById(R.id.playerList);
 
+        popup = (RelativeLayout) view.findViewById(R.id.popupList);
         pallet = (ImageButton) view.findViewById(R.id.pallet);
         draw = (ImageButton) view.findViewById(R.id.draw);
         eraser = (ImageButton) view.findViewById(R.id.eraser);
@@ -119,8 +128,15 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         mRrootLayout = (ViewGroup) view.findViewById(R.id.fieldRoot);
         players = new ArrayList<>();
 
+        myListView = (ListView) view.findViewById(R.id.listViewField);
+        teamButton = (Button) view.findViewById(R.id.teamPick);
+        opponentButton = (Button) view.findViewById(R.id.opponentPick);
+
+        linearLayout = (LinearLayout) view.findViewById(R.id.allLayout);
+
         UDB = ((SoccerDad) getActivity()).getUserDataBase();
         currentUser = ((SoccerDad) getActivity()).getUser();
+        list = UDB.getRoster(currentUser.getCurrentTeam());
 
         minorButtons.add(draw);
         minorButtons.add(eraser);
@@ -130,6 +146,8 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         draw.setOnClickListener(this);
         eraser.setOnClickListener(this);
         clear.setOnClickListener(this);
+        teamButton.setOnClickListener(this);
+        opponentButton.setOnClickListener(this);
 
         cont = view.getContext();
         whereThingsGo = (RelativeLayout) view.findViewById(R.id.whereThingsGo);
@@ -250,8 +268,36 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
                 undo();
             } else if (view.getId() == clear.getId()) {
                 PromptDelete();
+            } else if (view.getId() == teamButton.getId()) {
+                //pick team
+                linearLayout.setVisibility(View.INVISIBLE);
+                addPlayerToCanvas(0, setPosX, setPosY);
+            } else if (view.getId() == opponentButton.getId()) {
+                //pick opponent
+                linearLayout.setVisibility(View.INVISIBLE);
+                addPlayerToCanvas(1, setPosX, setPosY);
             }
+
         }
+    }
+
+    float setPosX = 50;
+    float setPosY = 50;
+
+
+    public void addPlayerToCanvas(int c, float x, float y) {
+        DragObject newObj = new DragObject(draw.getContext());
+        newObj.changeText(chosenstring);
+        newObj.setColor(c);
+        float xy = whereThingsGo.getScaleX() / 2;
+        newObj.setScaleX(xy);
+        newObj.setScaleY(xy);
+        newObj.setX(x - 150);
+        newObj.setY(y - 150);
+        newObj.setTextSize(20);
+        newObj.setOnTouchListener(thi);
+        whereThingsGo.addView(newObj);
+        players.add(newObj);
     }
 
     public void PromptDelete() {
@@ -302,40 +348,6 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
     }
     ListView listView;
     private String chosenstring = "n/a";
-
-    private class pickMe implements DialogInterface.OnClickListener {
-
-        float x;
-        float y;
-        int c;
-        String s;
-
-        public pickMe(float x, float y, int c, String s) {
-            this.x = x;
-            this.y = y;
-            this.c = c;
-            this.s = s;
-        }
-
-        @Override
-        public void onClick(DialogInterface dialog,int id) {
-            // put the player on the field
-
-            DragObject newObj = new DragObject(draw.getContext());
-            newObj.changeText(chosenstring);
-            newObj.setColor(c);
-            float xy = whereThingsGo.getScaleX() / 2;
-            newObj.setScaleX(xy);
-            newObj.setScaleY(xy);
-            newObj.setX(x - 150);
-            newObj.setY(y - 150);
-            newObj.setOnTouchListener(thi);
-            whereThingsGo.addView(newObj);
-            players.add(newObj);
-            dialog.cancel();
-        }
-    }
-
     private int _yDelta;
     private int _xDelta;
 
@@ -370,80 +382,35 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         return true;
     }
 
-    /*
-    @Override
-    public boolean onDrag(View view, DragEvent dragEvent) {
-        String msg = "n";
-        switch(dragEvent.getAction()) {
-            case DragEvent.ACTION_DRAG_STARTED: // when first picked up
-                msg = "drag started";
-                break;
-            case DragEvent.ACTION_DRAG_ENTERED: // get coordinates
-                msg = "drag entered";
-                break;
-            case DragEvent.ACTION_DRAG_EXITED: // the last coordinates before dropping
-                msg = "drag exit";
-                break;
-            case DragEvent.ACTION_DRAG_LOCATION: //
-                msg = "drag location";
-                break;
-            case DragEvent.ACTION_DRAG_ENDED:
-                msg = "drag ended";
-                break;
-            case DragEvent.ACTION_DROP:
-                msg = "action drop";
-                break;
-        }
-        System.out.println(msg);
-        return true;
-    }
-    */
-
     public void promptAddPlayer(float x, float y)
     {
-        LayoutInflater li = LayoutInflater.from(getContext());
-        View promptsView = li.inflate(R.layout.add_player_prompt, null);
+        setPosX = x;
+        setPosY = y;
 
-        List<String> list = UDB.getRoster(currentUser.getCurrentTeam());
+        //load in options
 
-        ArrayList<String> team = new ArrayList<>();
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(), R.layout.add_player_item, list);
+        myListView.setAdapter(adapter);
+        chosenstring = "";
 
-        for (int i = 0; i < list.size(); i++) {
-            team.add(list.get(i));
-        }
-
-        //for(int i = 0; i < ListView. )
-
-
-     /*ArrayAdapter adapter = new ArrayAdapter<>(cont, R.layout.add_player_item, team);
-//        if (adapter == null) {
-//            System.out.println("adapter");
-//        }
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-
+        myListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //save the name to chosenstring
-                chosenstring = (String) adapterView.getItemAtPosition(i);
+                chosenstring = (String) myListView.getItemAtPosition(i);
+                TextView tv = (TextView) myListView.getChildAt(i);
+                for (int j = 0; j < list.size(); j++) {
+                    TextView tv2 = (TextView) myListView.getChildAt(j);
+                    tv2.setBackgroundColor(Color.GRAY);
+                }
+                tv.setBackgroundColor(Color.DKGRAY);
             }
-        });*/
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                getContext());
-        // set prompts.xml to alert dialog builder
-        alertDialogBuilder.setView(promptsView);
-        alertDialogBuilder
-                .setCancelable(false)
-                .setPositiveButton("Team", new pickMe(x, y, 1, chosenstring))
-                .setNegativeButton("Opponent", new pickMe(x, y, 0, chosenstring));
+        });
 
-        // create alert dialog
-        AlertDialog alertDialog = alertDialogBuilder.create();
-
-        // show it
-        alertDialog.show();
+        popup.setVisibility(View.VISIBLE);
+        linearLayout.setVisibility(View.VISIBLE);
 
     }
+
     public void doubleTap(float x, float y) {
         if (!isDrawing && eraser.getVisibility() == View.INVISIBLE) {
             promptAddPlayer(x, y);
