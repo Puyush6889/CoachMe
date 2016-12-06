@@ -372,7 +372,7 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
                         .getLayoutParams();
                 layoutParams.leftMargin = X - _xDelta;
                 layoutParams.topMargin = Y - _yDelta;
-                int a = 250;
+                int a = 4000;
                 layoutParams.rightMargin = a;
                 layoutParams.bottomMargin = a;
                 view.setLayoutParams(layoutParams);
