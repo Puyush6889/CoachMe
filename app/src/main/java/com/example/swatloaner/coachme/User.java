@@ -19,11 +19,11 @@ public class User implements Serializable{
     private List<String> teams;
     private Bitmap profilePic;
 
-    public int getCURRENT_TEAM() {
+    public int getCurrentTeamIndex() {
         return CURRENT_TEAM;
     }
 
-    public void setCURRENT_TEAM(int CURRENT_TEAM) {
+    public void setCurrentTeamIndex(int CURRENT_TEAM) {
         this.CURRENT_TEAM = CURRENT_TEAM;
     }
 
@@ -90,5 +90,8 @@ public class User implements Serializable{
         CURRENT_TEAM = 0;
     }
 
+    public String getCurrentTeam(){
+       return teams.get(CURRENT_TEAM);
+    }
 
 }
