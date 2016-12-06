@@ -25,33 +25,35 @@ public class TouchHandler implements View.OnTouchListener {
     public boolean onTouch(View view, MotionEvent motionEvent) {
         int maskedAction = motionEvent.getActionMasked();
         gestureDetectorCompat.onTouchEvent(motionEvent);
-        switch (maskedAction) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_POINTER_DOWN:
-                if (motionEvent.getPointerCount() < 2) {
-                    isPressing = true;
-                    activity.addNewPath(num, motionEvent.getX(0), motionEvent.getY(0));
-                } else {
-                    reversing = true;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                activity.updatePath(num, motionEvent.getX(0), motionEvent.getY(0));
-                break;
-            case MotionEvent.ACTION_UP:
-            case MotionEvent.ACTION_POINTER_UP:
-            case MotionEvent.ACTION_CANCEL:
-                if (motionEvent.getPointerCount() == 1) {
-                    if (!reversing) {
-                        num++;
-                        isPressing = false;
+        if (activity.isDrawing) {
+            switch (maskedAction) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_POINTER_DOWN:
+                    if (motionEvent.getPointerCount() < 2) {
+                        isPressing = true;
+                        activity.addNewPath(num, motionEvent.getX(0), motionEvent.getY(0));
                     } else {
-                        reversing = false;
+                        reversing = true;
                     }
-                } else {
-                    reversing = true;
-                }
-                break;
+                    break;
+                case MotionEvent.ACTION_MOVE:
+                    activity.updatePath(num, motionEvent.getX(0), motionEvent.getY(0));
+                    break;
+                case MotionEvent.ACTION_UP:
+                case MotionEvent.ACTION_POINTER_UP:
+                case MotionEvent.ACTION_CANCEL:
+                    if (motionEvent.getPointerCount() == 1) {
+                        if (!reversing) {
+                            num++;
+                            isPressing = false;
+                        } else {
+                            reversing = false;
+                        }
+                    } else {
+                        reversing = true;
+                    }
+                    break;
+            }
         }
         return true;
     }

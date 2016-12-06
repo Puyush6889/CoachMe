@@ -8,8 +8,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
+import android.view.DragEvent;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -33,7 +35,7 @@ import java.util.ArrayList;
  * Use the {@link Field_Fragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class Field_Fragment extends Fragment implements  View.OnClickListener{
+public class Field_Fragment extends Fragment implements  View.OnClickListener, View.OnTouchListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -50,6 +52,9 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
     ImageButton clear;
     Context cont;
     RelativeLayout whereThingsGo;
+    Field_Fragment thi;
+    private ViewGroup mRrootLayout;
+    ArrayList<DragObject> players;
 
     public boolean isDrawing = false;
     boolean isErasing = false;
@@ -106,6 +111,9 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
         draw = (ImageButton) view.findViewById(R.id.draw);
         eraser = (ImageButton) view.findViewById(R.id.eraser);
         clear = (ImageButton) view.findViewById(R.id.clear);
+        thi = this;
+        mRrootLayout = (ViewGroup) view.findViewById(R.id.fieldRoot);
+        players = new ArrayList<>();
 
         minorButtons.add(draw);
         minorButtons.add(eraser);
@@ -118,7 +126,6 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
 
         cont = view.getContext();
         whereThingsGo = (RelativeLayout) view.findViewById(R.id.whereThingsGo);
-        System.out.println("Where things go added: " + whereThingsGo.toString());
 
         return view;
 
@@ -147,6 +154,7 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
         super.onDetach();
         mListener = null;
     }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -249,14 +257,24 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder
                 .setCancelable(false)
+                .setNeutralButton("cancel",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                dialog.cancel();
+                            }
+                        }
+                        )
                 .setPositiveButton("everything",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 //delete everything method
+                                whereThingsGo.removeAllViews();
+                                players.clear();
+                                myCanvas.clear();
                                 dialog.cancel();
                             }
                         })
-                .setNegativeButton("just Drawings",
+                .setNegativeButton("just drawings",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
                                 //clear method for canvas
@@ -302,22 +320,75 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener{
             newObj.setScaleY(xy);
             newObj.setX(x - 150);
             newObj.setY(y - 150);
+            newObj.setOnTouchListener(thi);
             whereThingsGo.addView(newObj);
-
-            /*TextView textView = new TextView(cont);
-            textView.setText("Testing");
-            textView.setGravity(Gravity.CENTER);
-            textView.setBackgroundResource(R.drawable.circle);
-            textView.setScaleX(xy);
-            textView.setScaleY(xy);
-            textView.setX(x - 50);
-            textView.setY(y - 50);
-            whereThingsGo.addView(textView);*/
-
+            players.add(newObj);
             dialog.cancel();
         }
     }
 
+    private int _yDelta;
+    private int _xDelta;
+
+    @Override
+    public boolean onTouch(View view, MotionEvent event) {
+        final int X = (int) event.getRawX();
+        final int Y = (int) event.getRawY();
+        switch (event.getAction() & MotionEvent.ACTION_MASK) {
+            case MotionEvent.ACTION_DOWN:
+                RelativeLayout.LayoutParams lParams = (RelativeLayout.LayoutParams) view.getLayoutParams();
+                _xDelta = X - lParams.leftMargin;
+                _yDelta = Y - lParams.topMargin;
+                break;
+            case MotionEvent.ACTION_UP:
+                break;
+            case MotionEvent.ACTION_POINTER_DOWN:
+                break;
+            case MotionEvent.ACTION_POINTER_UP:
+                break;
+            case MotionEvent.ACTION_MOVE:
+                RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) view
+                        .getLayoutParams();
+                layoutParams.leftMargin = X - _xDelta;
+                layoutParams.topMargin = Y - _yDelta;
+                int a = 250;
+                layoutParams.rightMargin = a;
+                layoutParams.bottomMargin = a;
+                view.setLayoutParams(layoutParams);
+                break;
+        }
+        mRrootLayout.invalidate();
+        return true;
+    }
+
+    /*
+    @Override
+    public boolean onDrag(View view, DragEvent dragEvent) {
+        String msg = "n";
+        switch(dragEvent.getAction()) {
+            case DragEvent.ACTION_DRAG_STARTED: // when first picked up
+                msg = "drag started";
+                break;
+            case DragEvent.ACTION_DRAG_ENTERED: // get coordinates
+                msg = "drag entered";
+                break;
+            case DragEvent.ACTION_DRAG_EXITED: // the last coordinates before dropping
+                msg = "drag exit";
+                break;
+            case DragEvent.ACTION_DRAG_LOCATION: //
+                msg = "drag location";
+                break;
+            case DragEvent.ACTION_DRAG_ENDED:
+                msg = "drag ended";
+                break;
+            case DragEvent.ACTION_DROP:
+                msg = "action drop";
+                break;
+        }
+        System.out.println(msg);
+        return true;
+    }
+    */
 
     public void promptAddPlayer(float x, float y)
     {

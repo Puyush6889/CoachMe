@@ -75,7 +75,6 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
             Log.e("Check for user", user.getEmail());
             //scan database for user credentials
             if (user.getEmail().equals(eml) && user.getId() == pwrd) {
-                toast.cancel();
 
                 this.user = user;
                 Intent intent = new Intent(getApplicationContext(), SoccerDad.class);
