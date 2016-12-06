@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
@@ -412,10 +413,12 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         }
 
         //for(int i = 0; i < ListView. )
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                getContext());
 
-        /*ArrayAdapter adapter = new ArrayAdapter<>(alertDialogBuilder.getContext(), R.layout.add_player_item, team);
+
+     /*ArrayAdapter adapter = new ArrayAdapter<>(cont, R.layout.add_player_item, team);
+//        if (adapter == null) {
+//            System.out.println("adapter");
+//        }
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -425,7 +428,8 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
                 chosenstring = (String) adapterView.getItemAtPosition(i);
             }
         });*/
-
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+                getContext());
         // set prompts.xml to alert dialog builder
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder
