@@ -10,33 +10,37 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Enrique:      let's get this fucking MONEEEEEYYYYY"
+                    android:textSize="20dp"
+                    android:text="Enrique: Guys want to discuss the plan for upcoming game?"
                     android:textColor="#ff3333"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Kirk:            fine..."
+                    android:textSize="20dp"
+                    android:text="Kirk:  Sure lets do it"
                     android:textColor="#3371ff"/>
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="38dp"
                     android:gravity="right"
-                    android:text="I like $$"
+                    android:textSize="20dp"
+                    android:text="Lets beats those UVA peeps Coach Joe"
                     android:textColor="#000000"/>
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Puyush:      same"
+                    android:textSize="20dp"
+                    android:text="Puyush: Lets do this Shit!!!!!!"
                     android:textColor="#0b771a"/>
         </LinearLayout>
 
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="write message"
+            android:hint="Enter you reply"
             android:textColor="#000000"
             android:layout_gravity="bottom"/>
 
