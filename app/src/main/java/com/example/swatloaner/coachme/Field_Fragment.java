@@ -25,6 +25,7 @@ import android.widget.TextView;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -55,6 +56,8 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
     Field_Fragment thi;
     private ViewGroup mRrootLayout;
     ArrayList<DragObject> players;
+    User currentUser;
+    UserDataBase UDB;
 
     public boolean isDrawing = false;
     boolean isErasing = false;
@@ -114,6 +117,9 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         thi = this;
         mRrootLayout = (ViewGroup) view.findViewById(R.id.fieldRoot);
         players = new ArrayList<>();
+
+        UDB = ((SoccerDad) getActivity()).getUserDataBase();
+        currentUser = ((SoccerDad) getActivity()).getUser();
 
         minorButtons.add(draw);
         minorButtons.add(eraser);
@@ -256,14 +262,7 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         // set prompts.xml to alertdialog builder
         alertDialogBuilder.setView(promptsView);
         alertDialogBuilder
-                .setCancelable(false)
-                .setNeutralButton("cancel",
-                        new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                dialog.cancel();
-                            }
-                        }
-                        )
+                .setCancelable(true)
                 .setPositiveButton("everything",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog,int id) {
@@ -281,7 +280,17 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
                                 myCanvas.clear();
                                 dialog.cancel();
                             }
+                        })
+                .setNeutralButton("just players",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                //clear method for canvas
+                                whereThingsGo.removeAllViews();
+                                players.clear();
+                                dialog.cancel();
+                            }
                         });
+
         // create alert dialog
         AlertDialog alertDialog = alertDialogBuilder.create();
 
@@ -292,7 +301,6 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
     }
     ListView listView;
     private String chosenstring = "n/a";
-
 
     private class pickMe implements DialogInterface.OnClickListener {
 
@@ -395,11 +403,12 @@ public class Field_Fragment extends Fragment implements  View.OnClickListener, V
         LayoutInflater li = LayoutInflater.from(getContext());
         View promptsView = li.inflate(R.layout.add_player_prompt, null);
 
-        ArrayList<String> team = new ArrayList<>();
-        String[] values = {"Kirk", "Joe", "Puyush", "Enrique"}; // TODO Change this to database for team
+        List<String> list = UDB.getRoster(currentUser.getCurrentTeam());
 
-        for (int i = 0; i < values.length; i++) {
-            team.add(values[i]);
+        ArrayList<String> team = new ArrayList<>();
+
+        for (int i = 0; i < list.size(); i++) {
+            team.add(list.get(i));
         }
 
         //for(int i = 0; i < ListView. )
