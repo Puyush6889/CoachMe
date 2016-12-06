@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:text="player1"
     android:background="#aaaaaa"
+    android:textColor="#ffffff"
+    android:textSize="20dp"
     android:gravity="center">
 
 </TextView>
