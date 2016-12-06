@@ -55,7 +55,9 @@ public class UserDataBase implements  Serializable {
         List<String> roster = new ArrayList<>();
 
         for (User maybeMate : users.values()) {
+            Log.e("User", maybeMate.getName());
             for ( String string : maybeMate.getTeams()) {
+                Log.e("team:", string);
                 if (team.equals(string)) {
                     roster.add(maybeMate.getName() + "\n"+"\n");
                 }

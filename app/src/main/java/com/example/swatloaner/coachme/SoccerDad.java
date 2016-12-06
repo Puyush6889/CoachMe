@@ -8,6 +8,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.app.NotificationManagerCompat;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -48,7 +49,9 @@ public class SoccerDad extends AppCompatActivity
 
         Intent intent = getIntent();
         userDataBase = (UserDataBase) intent.getExtras().get("database");
-        user = (User) intent.getExtras().get("user");
+        user = userDataBase.getUsers().get(intent.getExtras().get("user"));
+
+        Log.e("users", userDataBase.getUsers().values().toString());
 
         bundle = new Bundle();
         bundle.putSerializable("database", userDataBase);

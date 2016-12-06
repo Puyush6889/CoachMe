@@ -81,7 +81,7 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
                 //pass database to soccer dad
                 intent.putExtra("database", userDataBase);
                 //pass user email to soccer dad so that we can load correct profile
-                intent.putExtra("user", this.user);
+                intent.putExtra("user", this.user.getEmail());
                 //start soccer dad activity
                 startActivity(intent);
 

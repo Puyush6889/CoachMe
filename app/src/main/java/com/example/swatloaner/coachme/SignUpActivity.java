@@ -89,7 +89,7 @@ public class SignUpActivity extends AppCompatActivity implements View.OnClickLis
         //profile activty will need access to the User Database
         intent.putExtra("database", userDataBase);
         //profile activity will need to have a way to know which profile to load
-        intent.putExtra("user", user);
+        intent.putExtra("user", user.getEmail());
         startActivity(intent);
     }
 

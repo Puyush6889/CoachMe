@@ -28,7 +28,7 @@
             <!--android:icon="@drawable/notif"/>-->
 
         <item android:id="@+id/newTeam"
-            android:title="Create a Team"
+            android:title="Add a Team"
             android:icon="@drawable/team"/>
     </group>
 
