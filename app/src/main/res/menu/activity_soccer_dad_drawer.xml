@@ -22,12 +22,12 @@
             android:id="@+id/roster"
             android:title="Roster"
             android:icon="@drawable/ic_menu_manage"/>
-        <item android:id="@+id/notifications"
-            android:title="Notifications"
-            android:icon="@drawable/notif"/>
 
         <item android:id="@+id/newTeam"
             android:title="Create a Team"
+            android:icon="@drawable/team"/>
+        <item android:id="@+id/log_out"
+            android:title="Log Out"
             android:icon="@drawable/team"/>
     </group>
 
