@@ -4,4 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:text="player1"
-    android:gravity="center"></TextView>
+    android:background="#aaaaaa"
+    android:gravity="center">
+
+</TextView>
