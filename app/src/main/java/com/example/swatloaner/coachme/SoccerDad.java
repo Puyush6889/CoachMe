@@ -51,8 +51,6 @@ public class SoccerDad extends AppCompatActivity
         userDataBase = (UserDataBase) intent.getExtras().get("database");
         user = userDataBase.getUsers().get(intent.getExtras().get("user"));
 
-        Log.e("users", userDataBase.getUsers().values().toString());
-
         bundle = new Bundle();
         bundle.putSerializable("database", userDataBase);
         bundle.putSerializable("user", user);

@@ -47,7 +47,6 @@ public class RosterFragment extends Fragment {
 
 
     private void populateRoster(){
-        Log.e("Current team", "" + user.getCurrentTeam());
         List<String> rosterList = userDataBase.getRoster(user.getCurrentTeam());
 
         String team = "";

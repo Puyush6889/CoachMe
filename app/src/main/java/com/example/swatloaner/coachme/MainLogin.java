@@ -71,8 +71,6 @@ public class MainLogin extends AppCompatActivity implements View.OnClickListener
         int pwrd = Integer.parseInt(password.getText().toString());
 
         for (User user : userDataBase.getUsers().values()) {
-            Log.e("Check for user", user.getName());
-            Log.e("Check for user", user.getEmail());
             //scan database for user credentials
             if (user.getEmail().equals(eml) && user.getId() == pwrd) {
 
